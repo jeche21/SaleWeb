@@ -21,3 +21,6 @@ La página web tiene la funcionalidad de poder proporcionar a los usuarios una n
 - **Comentarios**: Es un apartado en el cual cada uno de los usuarios puede  opinar o aconsejar a otros usuarios basandose en su propia experiencia de compra en dicha tienda.
 - **Carrito**: Es un pedido provisional donde cada usuario puede añadir, modificar y eliminar cualquier producto que posteriormente quiere pagar.
 
+###INTEGRANTES DEL GRUPO###
+1. César Cuesta Vera: Correo Electrónico: c.cuestav@alumnos.urjc.es
+2. Jesús Rosa Martín: Correo Electrónico: j.rosa@alumnos.urjc.es
