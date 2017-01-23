@@ -7,7 +7,9 @@ La página web tiene la funcionalidad de poder proporcionar a los usuarios una n
 
 - **Parte Pública**: Los usuarios simplemente podran navegar por la pagina buscando aquellos productos que deseen comprar, y ver los comentarios publicados por otro usuarios que ya tengan experiencia de compra en esta plataforma, así como acceder a los datos de la empresa para contactar con ellos si surgen problemas, retrasos en el envio o cualquier otro tipo de duda.
 
-- **Parte Privada**: Los usuarios tendran que registrarse,(introduciendo sus datos personales,tarjetas bancarias,direccion,etc...) para poder pagar y que la compra se haga efectiva. Solo podran acceder a los pedidos de su cuenta personal. Pueden obtener los pedidos de dos manera diferentes:
+- **Parte Privada**: Los usuarios tendran que registrarse,(introduciendo sus datos personales,tarjetas bancarias,direccion,etc...) para poder pagar y que la compra se haga efectiva. Pueden obtener los pedidos de dos manera diferentes:
 
   * A domicilio.
   * Fisicamente en la tienda,(sin coste de envio).
+  
+ Pueden acceder al historial de pedidos realizados anteriormente, descargar las facturas de dichos pedidos, y cancelar un pedido siempre cuando no se haya procesado todavia el pedido.
