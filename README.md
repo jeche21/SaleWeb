@@ -12,4 +12,4 @@ La página web tiene la funcionalidad de poder proporcionar a los usuarios una n
   * A domicilio.
   * Fisicamente en la tienda,(sin coste de envio).
   
- Pueden acceder al historial de pedidos realizados anteriormente, descargar las facturas de dichos pedidos, y cancelar un pedido siempre cuando no se haya procesado todavia el pedido.
+ Pueden acceder al historial de pedidos realizados anteriormente, descargar las facturas de dichos pedidos, y cancelar un pedido siempre cuando no se haya procesado todavia el pedido. Podrán comentar en su correspondiente apartado sus opiniones y sus experiencias de compra en dicha plataforma.
