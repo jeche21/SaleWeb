@@ -24,3 +24,4 @@ La página web tiene la funcionalidad de poder proporcionar a los usuarios una n
 ###INTEGRANTES DEL GRUPO###
 1. César Cuesta Vera: Correo Electrónico: c.cuestav@alumnos.urjc.es
 2. Jesús Rosa Martín: Correo Electrónico: j.rosa@alumnos.urjc.es
+3. Alvaro Gala Martinez: Correo Electronico: a.gala@alumnos.urjc.es
