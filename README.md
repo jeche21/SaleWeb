@@ -15,9 +15,9 @@ La página web tiene la funcionalidad de poder proporcionar a los usuarios una n
  Pueden acceder al historial de pedidos realizados anteriormente, descargar las facturas de dichos pedidos, y cancelar un pedido siempre cuando no se haya procesado todavia el pedido. Podrán comentar en su correspondiente apartado sus opiniones y sus experiencias de compra en dicha plataforma.
  
 ###ENTIDADES PRINCIPALES###
-- **Productos**: 
-- **Pedidos**: 
-- **Usuarios**: 
-- **Comentarios**: 
-- **Carrito**: 
+- **Productos**: Son los diferentes articulos disponibles de la tienda que los usuarios pueden comprar.
+- **Pedidos**: Es el apartado donde cada usuario pueden consultar el historial de pedido realizados anteriormente,descargarse las facturas, etc...
+- **Usuarios**: Es cada una de las personas registradas en la pagina y podran comprar los productos que deseen.
+- **Comentarios**: Es un apartado en el cual cada uno de los usuarios puede  opinar o aconsejar a otros usuarios basandose en su propia experiencia de compra en dicha tienda.
+- **Carrito**: Es un pedido provisional donde cada usuario puede añadir, modificar y eliminar cualquier producto que posteriormente quiere pagar.
 
