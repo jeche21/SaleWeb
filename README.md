@@ -3,7 +3,7 @@ Página de gestion de compras y ventas online
 
 ###DESCRIPCIÓN###
 
-La página web implementa un supermercado y tiene la funcionalidad de poder proporcionar a los usuarios una navegacion por los productos del supermercad tienda permitiendo ir seleccionando los productos,que quieren comprar, acumulandolos en un carrito y posteriormente proceder a pagarlos para que se los lleven a domicilio, o bien realizar los pedidos por la pagina web y recogerlos en el supermercado personalmente.Para todo ello sera necesario tener una cuenta con los datos de cada cliente.Hemos dividido la pagina en dos partes:
+La página web implementa un supermercado y tiene la funcionalidad de poder proporcionar a los usuarios una navegacion por los productos del supermercado tienda permitiendo ir seleccionando los productos,que quieren comprar, acumulandolos en un carrito y posteriormente proceder a pagarlos para que se los lleven a domicilio, o bien realizar los pedidos por la pagina web y recogerlos en el supermercado personalmente.Para todo ello sera necesario tener una cuenta con los datos de cada cliente.Hemos dividido la pagina en dos partes:
 
 - **Parte Pública**: Los usuarios simplemente podran navegar por la pagina buscando aquellos productos que deseen comprar, y ver los comentarios publicados por otro usuarios que ya tengan experiencia de compra en ese supermercad, así como acceder a los datos del supermercado para contactar con ellos si surgen problemas, retrasos en el envio o cualquier otro tipo de duda.
 
