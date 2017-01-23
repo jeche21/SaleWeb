@@ -9,5 +9,5 @@ La página web tiene la funcionalidad de poder proporcionar a los usuarios una n
 
 - **Parte Privada**: Los usuarios tendran que registrarse,(introduciendo sus datos personales,tarjetas bancarias,direccion,etc...) para poder pagar y que la compra se haga efectiva. Solo podran acceder a los pedidos de su cuenta personal. Pueden obtener los pedidos de dos manera diferentes:
 
-* A domicilio
-* fisicamente en la tienda
+  * A domicilio
+  * fisicamente en la tienda
