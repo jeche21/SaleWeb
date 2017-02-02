@@ -44,4 +44,13 @@ public class SaleWebController {
 		
 		return "ver_articulo";
 	}
+	
+	@GetMapping("/articulo/{num}/comprado")
+	public String comprarArticulo (Model model, @PathVariable int num){
+		
+		articulos.remove(num-1);
+		
+		return "articulo_comprado";
+	}
+	
 }
