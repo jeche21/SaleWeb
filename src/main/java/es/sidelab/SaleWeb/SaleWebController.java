@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class SaleWebController {
@@ -19,6 +20,11 @@ public class SaleWebController {
 		articulos.add(new Articulo("Palmera", "Bollo", "Chocolate+Hojaldre"));
 	}
 	
+	@RequestMapping("/")
+	public String principal (){	
+		return "principal";
+	}
+	
 	@PostMapping("/articulo/nuevo")
 	public String nuevoArticulo(Model model, Articulo articulo) {
 		
@@ -27,7 +33,7 @@ public class SaleWebController {
 		return "articulo_guardado";
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/tienda")
 	public String tienda (Model model){
 		
 		model.addAttribute("articulos", articulos);		
@@ -50,7 +56,20 @@ public class SaleWebController {
 		
 		articulos.remove(num-1);
 		
-		return "articulo_comprado";
+		return "comprar";
+	}
+	
+	//**************JESUS ESTE SERIA EL NOMBRE QUE TIENES QUE UTILIZAR PARA LA VENTANA DE NUEVO USUARIO.
+	@GetMapping("/usuario/nuevo")
+	public String UsuarioNuevo (Model model){
+		
+		return "nuevo_usuario";
+	}
+	//**************BUYYYYI ESTE SERIA EL CONTROLADOR PARA EL CARRITO.
+	@GetMapping("/carrito")
+	public String carrito (Model model){
+		
+		return "carrito";
 	}
 	
 }

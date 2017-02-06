@@ -1,12 +1,17 @@
 <html>
 <body>
-	<h1>SALEWEB</h1>
+	<h2>Tienda</h2>
+	<h3>Lista de Articulos<h3>
+
 	{{#articulos}}
 	<a href="articulo/{{-index}}">{{nombre}} {{seccion}}</a><br>
 	{{/articulos}}
-	
 	<br>
-	<a href="nuevoArticulo.html">Nuevo Articulo</a>
-
+	<form action="nuevoArticulo.html" accept-charset="utf-8">
+		<input type="submit" name="nuevo" value="Nuevo Articulo">
+	</form> 
+	<form action="/carrito"  accept-charset="utf-8">
+		<input type="submit" name="carrito" value="Ver Carrito">
+	</form>
 </body>
 </html>
