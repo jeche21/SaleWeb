@@ -14,23 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SaleWebController {
 	
 	private List<Articulo> articulos = new ArrayList<>();
+	private List<Articulo> articulos_carrito = new ArrayList<>();
 	
 	public SaleWebController(){
+		
 		articulos.add(new Articulo("Suricato", "Animal", "Fiera mascota"));
 		articulos.add(new Articulo("Palmera", "Bollo", "Chocolate+Hojaldre"));
+		
+		//articulos_carrito.add(new Articulo("prueba", "prueba", "prueba"));
 	}
 	
 	@RequestMapping("/")
 	public String principal (){	
 		return "principal";
-	}
-	
-	@PostMapping("/articulo/nuevo")
-	public String nuevoArticulo(Model model, Articulo articulo) {
-		
-		articulos.add(articulo);
-		
-		return "articulo_guardado";
 	}
 	
 	@GetMapping("/tienda")
@@ -41,6 +37,16 @@ public class SaleWebController {
 		return "tienda";
 	}
 	
+	//*** DONE ***
+	@PostMapping("/articulo/nuevo")
+	public String nuevoArticulo(Model model, Articulo articulo) {
+		
+		articulos.add(articulo);
+		
+		return "articulo_guardado";
+	}
+	
+	//*** DONE ***
 	@GetMapping("/articulo/{num}")
 	public String verArticulo (Model model, @PathVariable int num){
 		
@@ -51,12 +57,35 @@ public class SaleWebController {
 		return "ver_articulo";
 	}
 	
-	@GetMapping("/articulo/{num}/comprado")
-	public String comprarArticulo (Model model, @PathVariable int num){
+	//*** DONE ***
+	@GetMapping("/carrito")
+	public String verCarrito (Model model){
+			
+		model.addAttribute("articulos_carrito", articulos_carrito);		
+			
+		return "carrito";
+	}
+	
+	//*** DONE ***
+	@GetMapping("/carrito/{num}")
+	public String verArticuloCarrito (Model model, @PathVariable int num){
 		
+		Articulo articulo_carrito = articulos_carrito.get(num-1);
+		model.addAttribute("articulo_carrito", articulo_carrito);
+		
+		return "ver_articuloCarrito";
+	}
+	
+	
+	//*** DONE ***
+	@GetMapping("/articulo/{num}/añadido")
+	public String añadirArticulo (Model model, @PathVariable int num){
+		
+		Articulo articulo = articulos.get(num-1);
+		articulos_carrito.add(articulo);
 		articulos.remove(num-1);
 		
-		return "comprar";
+		return "articulo_añadido";
 	}
 	
 	//**************JESUS ESTE SERIA EL NOMBRE QUE TIENES QUE UTILIZAR PARA LA VENTANA DE NUEVO USUARIO.
@@ -71,5 +100,15 @@ public class SaleWebController {
 		
 		return "carrito";
 	}
+	
+	//*** DONE ***
+	@GetMapping("/carrito/{num}/eliminado")
+	public String eliminarArticuloCarrito (Model model, @PathVariable int num){
+		
+		articulos_carrito.remove(num-1);
+		
+		return "articuloCarritoEliminado";
+	}
+	
 	
 }
