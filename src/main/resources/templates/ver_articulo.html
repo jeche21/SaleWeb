@@ -7,11 +7,8 @@
  	<p>seccion: {{articulo.seccion}}</p>
  	<p>Descripcion: {{articulo.descripcion}}</p>
  	
- 	<form action="/carrito" accept-charset="utf-8">
+ 	<form action="/articulo/{{num}}/añadido" accept-charset="utf-8">
  		<input type="submit" name="carrito" value="Añadir al carrito">
- 	</form>
- 	<form action="/articulo/{num}/comprado" accept-charset="utf-8">
- 		<input type="submit" name="comprar" value="Comprar">
  	</form>
  	<form action="/tienda" accept-charset="utf-8">
  		<input type="submit" name="volver" value="Volver a la tienda">

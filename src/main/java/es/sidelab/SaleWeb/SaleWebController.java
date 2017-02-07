@@ -88,19 +88,6 @@ public class SaleWebController {
 		return "articulo_añadido";
 	}
 	
-	//**************JESUS ESTE SERIA EL NOMBRE QUE TIENES QUE UTILIZAR PARA LA VENTANA DE NUEVO USUARIO.
-	@GetMapping("/usuario/nuevo")
-	public String UsuarioNuevo (Model model){
-		
-		return "nuevo_usuario";
-	}
-	//**************BUYYYYI ESTE SERIA EL CONTROLADOR PARA EL CARRITO.
-	@GetMapping("/carrito")
-	public String carrito (Model model){
-		
-		return "carrito";
-	}
-	
 	//*** DONE ***
 	@GetMapping("/carrito/{num}/eliminado")
 	public String eliminarArticuloCarrito (Model model, @PathVariable int num){
@@ -109,6 +96,13 @@ public class SaleWebController {
 		
 		return "articuloCarritoEliminado";
 	}
+	
+	//**************JESUS ESTE SERIA EL NOMBRE QUE TIENES QUE UTILIZAR PARA LA VENTANA DE NUEVO USUARIO.
+		@GetMapping("/usuario/nuevo")
+		public String UsuarioNuevo (Model model){
+			
+			return "nuevo_usuario";
+		}
 	
 	
 }

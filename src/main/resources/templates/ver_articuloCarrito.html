@@ -4,8 +4,12 @@
  	<p>Seccion: {{articulo_carrito.seccion}}</p>
  	<p>Descripcion: {{articulo_carrito.descripcion}}</p>
  	
- 	<a href="/carrito/{{num}}/eliminado">Eliminar</a>
- 	<br>
- 	<a href="/">Volver a la tienda.</a>
+ 	<form action="/carrito/{{num}}/eliminado" accept-charset="utf-8">
+ 		<input type="submit" name="eliminar" value="Eliminar">
+ 	</form>
+ 	
+ 	<form action="/tienda" accept-charset="utf-8">
+ 		<input type="submit" name="volver" value="Volver a la tienda">
+ 	</form>
 </body>
 </html>
