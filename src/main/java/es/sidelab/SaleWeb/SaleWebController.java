@@ -15,6 +15,7 @@ public class SaleWebController {
 	
 	private List<Articulo> articulos = new ArrayList<>();
 	private List<Articulo> articulos_carrito = new ArrayList<>();
+	private ArrayList<Usuario> usuarios = new ArrayList<>();
 	
 	public SaleWebController(){
 		
@@ -25,7 +26,7 @@ public class SaleWebController {
 	}
 	
 	@RequestMapping("/")
-	public String principal (){	
+	public String principal (){
 		return "principal";
 	}
 	
@@ -98,10 +99,10 @@ public class SaleWebController {
 	}
 	
 	//**************JESUS ESTE SERIA EL NOMBRE QUE TIENES QUE UTILIZAR PARA LA VENTANA DE NUEVO USUARIO.
-		@GetMapping("/usuario/nuevo")
-		public String UsuarioNuevo (Model model){
-			
-			return "nuevo_usuario";
+		@PostMapping("/usuario/nuevo")
+		public String UsuarioNuevo (Model model, Usuario usuario){
+			usuarios.add(usuario);
+			return "usuario_registrado";
 		}
 	
 	
