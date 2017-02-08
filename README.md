@@ -12,12 +12,11 @@ La página web implementa un servicio de venta on-line y tiene la funcionalidad 
 Pueden acceder al historial de pedidos realizados anteriormente, descargar las facturas de dichos pedidos, y cancelar un pedido siempre cuando no se haya procesado el pedido. Podrán comentar en su correspondiente apartado sus opiniones y sus experiencias de compra en dicha plataforma.
  
 ###ENTIDADES PRINCIPALES###
-- **Productos**: Son los diferentes articulos disponibles de la pagina que los usuarios pueden comprar.
+- **Articulos**: Son los diferentes productos disponibles de la pagina que los usuarios pueden comprar.
 - **Pedidos**: Es el apartado donde cada usuario pueden consultar el historial de pedidos realizados anteriormente, descargarse las facturas, etc...
 - **Usuarios**: Es cada una de las personas registradas en la pagina.
 - **Comentarios**: Es un apartado en el cual cada uno de los usuarios puede opinar o aconsejar a otros usuarios basandose en su propia experiencia de compra en dicha plataforma.
 - **Carrito**: Es un pedido provisional donde cada usuario puede añadir, modificar y eliminar cualquier producto que posteriormente quiere pagar.
-- **Búsqueda**: Apartado en el cual el usuario puede buscar un articulo por nombre marca o categoría.
 
 ###SERVICIO INTERNO###
 Nuestra aplicacion web usara un servicio interno que controlara el stock del almacen de nuestra tienda on-line.

@@ -1,5 +1,6 @@
 package es.sidelab.SaleWeb;
 
+
 public class Usuario {
 	
 	private String nombre;

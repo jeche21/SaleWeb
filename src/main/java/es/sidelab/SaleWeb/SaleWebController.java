@@ -1,8 +1,12 @@
 package es.sidelab.SaleWeb;
 
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,17 +14,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @Controller
 public class SaleWebController {
+	
+	@Autowired
+	private ArticuloRepository articulo_repository;
+	
+	@Autowired
+	private CarritoRepository carrito_repository;
 	
 	private List<Articulo> articulos = new ArrayList<>();
 	private List<Articulo> articulos_carrito = new ArrayList<>();
 	private ArrayList<Usuario> usuarios = new ArrayList<>();
 	
-	public SaleWebController(){
+	@PostConstruct
+	public void inicio(){
 		
-		articulos.add(new Articulo("Suricato", "Animal", "Fiera mascota"));
-		articulos.add(new Articulo("Palmera", "Bollo", "Chocolate+Hojaldre"));
+		articulo_repository.save(new Articulo("Suricato", "Animal", "Fiera mascota"));
+		articulo_repository.save(new Articulo("Palmera", "Bollo", "Chocolate+Hojaldre"));
 		
 		//articulos_carrito.add(new Articulo("prueba", "prueba", "prueba"));
 	}
@@ -42,18 +54,19 @@ public class SaleWebController {
 	@PostMapping("/articulo/nuevo")
 	public String nuevoArticulo(Model model, Articulo articulo) {
 		
-		articulos.add(articulo);
-		
+		//articulos.add(articulo);
+		articulo_repository.save(articulo);
 		return "articulo_guardado";
 	}
 	
 	//*** DONE ***
 	@GetMapping("/articulo/{num}")
-	public String verArticulo (Model model, @PathVariable int num){
+	public String verArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
 		
-		Articulo articulo = articulos.get(num-1);
-		
-		model.addAttribute("articulo", articulo);
+		//Articulo articulo = articulos.get(num-1);
+		//model.addAttribute("articulo", articulo);
+		Articulo articulo_guardado = articulo_repository.findOne(id);
+		model.addAttribute("articulo",articulo_guardado);
 		
 		return "ver_articulo";
 	}
@@ -80,25 +93,30 @@ public class SaleWebController {
 	
 	//*** DONE ***
 	@GetMapping("/articulo/{num}/añadido")
-	public String añadirArticulo (Model model, @PathVariable int num){
+	public String añadirArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
 		
-		Articulo articulo = articulos.get(num-1);
+		/*Articulo articulo = articulos.get(num-1);
 		articulos_carrito.add(articulo);
-		articulos.remove(num-1);
+		articulos.remove(num-1);*/
+		
+		Articulo articulo_guardado = articulo_repository.findOne(id);
+		//carrito_repository.save(articulo_guardado);
+		articulo_repository.delete(articulo_guardado);
 		
 		return "articulo_añadido";
 	}
 	
 	//*** DONE ***
 	@GetMapping("/carrito/{num}/eliminado")
-	public String eliminarArticuloCarrito (Model model, @PathVariable int num){
+	public String eliminarArticuloCarrito (Model model,@PathVariable long id /*@PathVariable int num*/){
 		
-		articulos_carrito.remove(num-1);
+		//articulos_carrito.remove(num-1);
+		Articulo articulo_guardado = articulo_repository.findOne(id);
+		articulo_repository.delete(articulo_guardado);
 		
 		return "articuloCarritoEliminado";
 	}
 	
-	//**************JESUS ESTE SERIA EL NOMBRE QUE TIENES QUE UTILIZAR PARA LA VENTANA DE NUEVO USUARIO.
 		@PostMapping("/usuario/nuevo")
 		public String UsuarioNuevo (Model model, Usuario usuario){
 			usuarios.add(usuario);
