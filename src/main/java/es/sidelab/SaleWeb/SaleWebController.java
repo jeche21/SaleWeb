@@ -27,8 +27,11 @@ public class SaleWebController {
 	@Autowired
 	private UsuarioRepository usuario_repository;
 	
-	private List<Articulo> articulos = new ArrayList<>();
-	private List<Articulo> articulos_carrito = new ArrayList<>();
+	private Carrito carrito;
+	
+	//private List<Articulo> articulos = new ArrayList<>();
+	//private List<Articulo> articulos_carrito = new ArrayList<>();
+	private ArrayList<Usuario> usuarios = new ArrayList<>();
 	
 	@PostConstruct
 	public void inicio(){
@@ -47,12 +50,13 @@ public class SaleWebController {
 	@GetMapping("/tienda")
 	public String tienda (Model model){
 		
+		List<Articulo> articulos = articulo_repository.findAll();
+		
 		model.addAttribute("articulos", articulos);		
 		
 		return "tienda";
 	}
 	
-	//*** DONE ***
 	@PostMapping("/articulo/nuevo")
 	public String nuevoArticulo(Model model, Articulo articulo) {
 		
@@ -61,39 +65,37 @@ public class SaleWebController {
 		return "articulo_guardado";
 	}
 	
-	//*** DONE ***
 	@GetMapping("/articulo/{num}")
 	public String verArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
 		
 		//Articulo articulo = articulos.get(num-1);
 		//model.addAttribute("articulo", articulo);
+		
 		Articulo articulo_guardado = articulo_repository.findOne(id);
 		model.addAttribute("articulo",articulo_guardado);
 		
 		return "ver_articulo";
 	}
 	
-	//*** DONE ***
 	@GetMapping("/carrito")
 	public String verCarrito (Model model){
-			
-		model.addAttribute("articulos_carrito", articulos_carrito);		
+		
+		//duda: como coger los articulos del array de articulos del carrito
+		
+		model.addAttribute("articulos_carrito", carrito.articulos_carrito);		
 			
 		return "carrito";
 	}
 	
-	//*** DONE ***
 	@GetMapping("/carrito/{num}")
-	public String verArticuloCarrito (Model model, @PathVariable int num){
+	public String verArticuloCarrito (Model model, @PathVariable int id /*@PathVariable int num*/){
 		
-		Articulo articulo_carrito = articulos_carrito.get(num-1);
+		Articulo articulo_carrito = carrito.articulos_carrito.get(id-1);
 		model.addAttribute("articulo_carrito", articulo_carrito);
 		
 		return "ver_articuloCarrito";
 	}
 	
-	
-	//*** DONE ***
 	@GetMapping("/articulo/{num}/añadido")
 	public String añadirArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
 		
@@ -102,13 +104,14 @@ public class SaleWebController {
 		articulos.remove(num-1);*/
 		
 		Articulo articulo_guardado = articulo_repository.findOne(id);
+		
+		articulo_guardado.setCarrito(carrito);
 		//carrito_repository.save(articulo_guardado);
 		articulo_repository.delete(articulo_guardado);
 		
 		return "articulo_añadido";
 	}
 	
-	//*** DONE ***
 	@GetMapping("/carrito/{num}/eliminado")
 	public String eliminarArticuloCarrito (Model model,@PathVariable long id /*@PathVariable int num*/){
 		
@@ -119,12 +122,13 @@ public class SaleWebController {
 		return "articuloCarritoEliminado";
 	}
 	
-		@PostMapping("/usuario/nuevo")
-		public String UsuarioNuevo (Model model, Usuario usuario){
-			//Guardo el usuario creado
-			usuario_repository.save(usuario);
-			return "usuario_registrado";
-		}
 	
+	@PostMapping("/usuario/nuevo")
+	public String UsuarioNuevo (Usuario usuario){
+		//Guardo el usuario creado
+		usuario_repository.save(usuario);
+		return "usuario_registrado";
+	}
+
 	
 }
