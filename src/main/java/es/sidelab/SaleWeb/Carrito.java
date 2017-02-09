@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Carrito {
@@ -24,6 +25,8 @@ public class Carrito {
 	@OneToMany(cascade=CascadeType.ALL)
 	List<Articulo> articulos_carrito = new ArrayList<>();
 	
+	@OneToOne(mappedBy="carrito")
+	private Usuario usuario;
 	
 	protected Carrito(){
 		//Sirve para que SpringData pueda instanciar el objeto 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +30,7 @@ public class SaleWebController {
 	
 	//private List<Articulo> articulos = new ArrayList<>();
 	//private List<Articulo> articulos_carrito = new ArrayList<>();
-	private ArrayList<Usuario> usuarios = new ArrayList<>();
+	//private ArrayList<Usuario> usuarios = new ArrayList<>();
 	
 	@PostConstruct
 	public void inicio(){
@@ -105,7 +104,7 @@ public class SaleWebController {
 		
 		Articulo articulo_guardado = articulo_repository.findOne(id);
 		
-		articulo_guardado.setCarrito(carrito);
+		carrito.articulos_carrito.add(articulo_guardado);
 		//carrito_repository.save(articulo_guardado);
 		articulo_repository.delete(articulo_guardado);
 		

@@ -22,8 +22,6 @@ public class Articulo {
 	private String seccion;
 	private String descripcion;
 	
-	private Carrito carrito;
-	
 	//uno articulo tiene varios comentarios y se borran en cascada
 	@OneToMany(cascade=CascadeType.ALL)
 	List<Comentario> listaComentarios = new ArrayList<>();
@@ -63,13 +61,6 @@ public class Articulo {
 		this.descripcion = descripcion;
 	}
 
-	public Carrito getCarrito() {
-		return carrito;
-	}
-
-	public void setCarrito(Carrito carrito) {
-		this.carrito = carrito;
-	}
 
 	
 	

@@ -1,12 +1,14 @@
 package es.sidelab.SaleWeb;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario {
@@ -36,8 +38,11 @@ public class Usuario {
 	private int piso;
 	private String letra; //2ºA o 2º1 damos las dos opciones con string
 	
-	@OneToMany
-	private ArrayList<Pedido> pedidos;
+	@OneToMany(mappedBy="usuario")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
+	@OneToOne
+	private Carrito carrito;
 	
 	public Usuario(){
 	}
@@ -164,7 +169,7 @@ public class Usuario {
 		this.letra = letra;
 	}
 	
-	public ArrayList<Pedido> getPedidos() {
+	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
 
