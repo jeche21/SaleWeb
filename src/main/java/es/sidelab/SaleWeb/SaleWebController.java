@@ -1,5 +1,6 @@
 package es.sidelab.SaleWeb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -28,7 +29,7 @@ public class SaleWebController {
 	
 	private Carrito carrito;
 	
-	//private List<Articulo> articulos = new ArrayList<>();
+	private List<Articulo> articulos = new ArrayList<>();
 	//private List<Articulo> articulos_carrito = new ArrayList<>();
 	//private ArrayList<Usuario> usuarios = new ArrayList<>();
 	
@@ -49,7 +50,7 @@ public class SaleWebController {
 	@GetMapping("/tienda")
 	public String tienda (Model model){
 		
-		List<Articulo> articulos = articulo_repository.findAll();
+		articulos = articulo_repository.findAll();
 		
 		model.addAttribute("articulos", articulos);		
 		
@@ -65,13 +66,13 @@ public class SaleWebController {
 	}
 	
 	@GetMapping("/articulo/{num}")
-	public String verArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
+	public String verArticulo (Model model, /*@PathVariable long id*/ @PathVariable int num){
 		
-		//Articulo articulo = articulos.get(num-1);
-		//model.addAttribute("articulo", articulo);
+		Articulo articulo = articulos.get(num-1);
+		model.addAttribute("articulo", articulo);
 		
-		Articulo articulo_guardado = articulo_repository.findOne(id);
-		model.addAttribute("articulo",articulo_guardado);
+		//Articulo articulo_guardado = articulo_repository.findOne(id);
+		//model.addAttribute("articulo",articulo_guardado);
 		
 		return "ver_articulo";
 	}
@@ -96,17 +97,17 @@ public class SaleWebController {
 	}
 	
 	@GetMapping("/articulo/{num}/añadido")
-	public String añadirArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
+	public String añadirArticulo (Model model, /*@PathVariable long id*/ @PathVariable int num){
 		
-		/*Articulo articulo = articulos.get(num-1);
-		articulos_carrito.add(articulo);
-		articulos.remove(num-1);*/
+		Articulo articulo = articulos.get(num-1);
+		//articulos_carrito.add(articulo);
+		//articulos.remove(num-1);
 		
-		Articulo articulo_guardado = articulo_repository.findOne(id);
+		//Articulo articulo_guardado = articulo_repository.findOne(id);
 		
-		carrito.articulos_carrito.add(articulo_guardado);
-		//carrito_repository.save(articulo_guardado);
-		articulo_repository.delete(articulo_guardado);
+		carrito.getArticulos_carrito().add(articulo);
+		carrito_repository.save(carrito);
+		articulo_repository.delete(articulo);
 		
 		return "articulo_añadido";
 	}
