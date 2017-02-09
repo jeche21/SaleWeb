@@ -1,5 +1,6 @@
 package es.sidelab.SaleWeb;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +64,6 @@ public class Usuario {
 		this.escalera = escalera;
 		this.piso = piso;
 		this.letra = letra;
-		this.pedidos = new ArrayList<Pedido>();
 	}
 	
 	public String getNombre() {
@@ -173,7 +173,7 @@ public class Usuario {
 		return pedidos;
 	}
 
-	public void setPedidos(ArrayList<Pedido> pedidos) {
+	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
 
