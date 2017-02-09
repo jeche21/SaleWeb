@@ -24,9 +24,11 @@ public class SaleWebController {
 	@Autowired
 	private CarritoRepository carrito_repository;
 	
+	@Autowired
+	private UsuarioRepository usuario_repository;
+	
 	private List<Articulo> articulos = new ArrayList<>();
 	private List<Articulo> articulos_carrito = new ArrayList<>();
-	private ArrayList<Usuario> usuarios = new ArrayList<>();
 	
 	@PostConstruct
 	public void inicio(){
@@ -119,7 +121,8 @@ public class SaleWebController {
 	
 		@PostMapping("/usuario/nuevo")
 		public String UsuarioNuevo (Model model, Usuario usuario){
-			usuarios.add(usuario);
+			//Guardo el usuario creado
+			usuario_repository.save(usuario);
 			return "usuario_registrado";
 		}
 	

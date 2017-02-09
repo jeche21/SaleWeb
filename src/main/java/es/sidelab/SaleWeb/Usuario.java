@@ -1,23 +1,64 @@
 package es.sidelab.SaleWeb;
 
+import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Usuario {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
 	
 	private String nombre;
 	private String primerApellido;
 	private String segundoApellido;
 	private String contraseña;
 	private String email;
+	/*Se podría poner a la hora de realizar la compra para asi no tener un 
+	 * cuestionario tan grande, para ello tendriamos que crear direcion como una
+	 * nueva entidad.
+	 * De esa forma podriamos añadir nuevas direciones al usuario, sino se queda con esta
+	 * y no tiene opcion a cambiarla
+	 */
+	private String pais;
+	private String provincia;
+	private String municipio;
+	private String calle;
+	private int numero; 
+	private String portal; //Dentro de una urbanizacion indica el portal o null si no esta en una urbanizacion
+	private String escalera; //Hay portales con dos escaleras
+	private int piso;
+	private String letra; //2ºA o 2º1 damos las dos opciones con string
+	
+	@OneToMany
+	private ArrayList<Pedido> pedidos;
 	
 	public Usuario(){
 	}
 	
-	public Usuario(String nombre, String primerApellido, String segundoApelido, String contraseña, String email){
+	public Usuario(String nombre, String primerApellido, String segundoApelido, String contraseña, String email,
+			String pais, String provincia, String municipio, String calle, int numero, String portal, String escalera, int piso, String letra){
 		this.nombre = nombre;
 		this.primerApellido = primerApellido;
 		this.segundoApellido = segundoApelido;
 		this.contraseña = contraseña;
 		this.email = email;
+		this.pais = pais;
+		this.provincia = provincia;
+		this.municipio = municipio;
+		this.calle = calle;
+		this.numero = numero;
+		this.portal = portal;
+		this.escalera = escalera;
+		this.piso = piso;
+		this.letra = letra;
+		this.pedidos = new ArrayList<Pedido>();
 	}
 	
 	public String getNombre() {
@@ -50,12 +91,93 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+
+	public String getCalle() {
+		return calle;
+	}
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public String getPortal() {
+		return portal;
+	}
+
+	public void setPortal(String portal) {
+		this.portal = portal;
+	}
+
+	public String getEscalera() {
+		return escalera;
+	}
+
+	public void setEscalera(String escalera) {
+		this.escalera = escalera;
+	}
+
+	public int getPiso() {
+		return piso;
+	}
+
+	public void setPiso(int piso) {
+		this.piso = piso;
+	}
+
+	public String getLetra() {
+		return letra;
+	}
+
+	public void setLetra(String letra) {
+		this.letra = letra;
+	}
+	
+	public ArrayList<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(ArrayList<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [nombre=" + nombre + ", primerApellido=" + primerApellido + ", segundoApellido="
-				+ segundoApellido + ", contraseÃ±a=" + contraseña + ", email=" + email + "]";
+				+ segundoApellido + ", email=" + email + ", pais=" + pais + ", provincia=" + provincia + ", municipio="
+				+ municipio + ", calle=" + calle + ", numero=" + numero + ", portal=" + portal + ", escalera="
+				+ escalera + ", piso=" + piso + ", letra=" + letra + "]";
 	}
-	
-	
 }
 
