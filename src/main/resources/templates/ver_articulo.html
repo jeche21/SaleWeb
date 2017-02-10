@@ -6,6 +6,17 @@
  	<p>Nombre: {{articulo.nombre}}</p>
  	<p>seccion: {{articulo.seccion}}</p>
  	<p>Descripcion: {{articulo.descripcion}}</p>
+
+ 	<form action="/usuario/comentario" method="post" accept-charset="utf-8">
+ 		<p>Comentario: <textarea name="cuerpo" placeholder="Escriba aqui su comentario..."></textarea></p>
+ 		<input type="submit" name="comentar" value="Comentar">
+ 	</form>
+	<p>Comentarios: </p>
+	<ul>
+		{{#comentarios}}
+		<a href="comentario/{{-index}}">{{cuerpo}}</a><br>
+		{{/comentarios}}
+	</ul>
  	
  	<form action="/articulo/{{num}}/añadido" accept-charset="utf-8">
  		<input type="submit" name="carrito" value="Añadir al carrito">
