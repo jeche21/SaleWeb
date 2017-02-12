@@ -14,7 +14,6 @@ public class Comentario {
 	private long id;
 	
 	private String cuerpo;
-	private String fecha;
 	
 	@OneToOne
 	private Usuario autor;
@@ -26,7 +25,6 @@ public class Comentario {
 	
 	public Comentario (String cuerpo, String fecha, Usuario autor){
 		this.cuerpo = cuerpo;
-		this.fecha = fecha;
 		this.autor = autor;
 	}
 
@@ -36,14 +34,6 @@ public class Comentario {
 
 	public void setCuerpo(String cuerpo) {
 		this.cuerpo = cuerpo;
-	}
-
-	public String getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
 	}
 
 	public Usuario getAutor() {

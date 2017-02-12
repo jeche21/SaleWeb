@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.sidelab.SaleWeb.Carrito;
+import es.sidelab.SaleWeb.Comentario;
 
 
 
@@ -33,7 +34,6 @@ public class SaleWebController {
 	@Autowired
 	private UsuarioRepository usuario_repository;
 	
-	private Carrito carrito;
 	
 	private List<Articulo> articulos = new ArrayList<>();
 	//private List<Articulo> articulos_carrito = new ArrayList<>();
@@ -145,31 +145,23 @@ public class SaleWebController {
 		}
 		
 		@PostMapping("/usuario/comentario")
-		public String comentar (Model model, Comentario comentario){
-			//Guardo el comentario escrito creado
+		public String comentariosLista (Model model,Comentario comentario){
+			comentario_repository.save(comentario);
 			comentarios.add(comentario);
-			comentario_repository.save(comentarios);
+			
 			model.addAttribute("comentarios",comentarios);
 			return "comentario_guardado";
 		}
-		//tenemos que poner un boton eliminar al lado de cada comentario
-		@GetMapping("/comentario/{num}/eliminado")
-		public String comentarioEliminar (Model model,@PathVariable int num){
-			
-			Comentario comentarioSeleccionado = comentarios.get(num-1);
-			comentarios.remove(comentarioSeleccionado);
-			comentario_repository.delete(comentarioSeleccionado);
+		
+		@GetMapping("/comentario/eliminado")
+		public String eliminarComentario (Model model,Comentario comentario){
+			//borramos el comentario tanto de la base de datos....
+			comentario_repository.delete(comentario);
+			//como de la lista de comentarios,(que la ponemos para poder mostrar todos los comentarios a la lista que tenemos!!
+			comentarios.remove(comentario);
+			//finalmente mostramos de nuevo el ver articulo con la lista de los comentarios sin el que acabamos de borrar
 			return "ver_articulo";
 		}
-		@GetMapping("/comentario/{num}")
-		public String verComentario(Model model,@PathVariable int num){
-			
-			Comentario comentario = comentarios.get(num-1);
-			model.addAttribute("articulo", comentario);
-			return "ver_comentario";
-		}
-		
-		
 		
 		
 	
