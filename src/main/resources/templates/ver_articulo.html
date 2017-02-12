@@ -12,12 +12,9 @@
  		<input type="submit" name="comentar" value="Comentar">
  	</form>
 	<p>Comentarios: </p>
-	<ul>
 		{{#comentarios}}
 		<a href="comentario/{{-index}}">{{cuerpo}}</a><br>
 		{{/comentarios}}
-	</ul>
- 	
  	<form action="/articulo/{{num}}/añadido" accept-charset="utf-8">
  		<input type="submit" name="carrito" value="Añadir al carrito">
  	</form>

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import es.sidelab.SaleWeb.Carrito;
+
+
 
 @Controller
 public class SaleWebController {
@@ -37,6 +40,8 @@ public class SaleWebController {
 	//private List<Usuario> usuarios = new ArrayList<>();
 	private List<Comentario> comentarios = new ArrayList<>();
 	
+	Usuario usuarioEnPagina;
+	
 	@PostConstruct
 	public void inicio(){
 		
@@ -53,6 +58,7 @@ public class SaleWebController {
 	
 	@GetMapping("/tienda")
 	public String tienda (Model model){
+		model.addAttribute("usuario", usuarioEnPagina);
 		articulos = articulo_repository.findAll();
 		model.addAttribute("articulos", articulos);		
 		
@@ -84,7 +90,7 @@ public class SaleWebController {
 	@GetMapping("/carrito")
 	public String verCarrito (Model model){
 			
-		model.addAttribute("articulos_carrito", carrito.articulos_carrito);		
+		model.addAttribute("articulos_carrito",  usuarioEnPagina.getCarrito().getArticulosCarrito());		
 			
 		return "carrito";
 	}
@@ -93,8 +99,8 @@ public class SaleWebController {
 	@GetMapping("/carrito/{num}")
 	public String verArticuloCarrito (Model model, @PathVariable int num){
 		
-		Articulo articulo_carrito = carrito.articulos_carrito.get(num-1);
-		model.addAttribute("articulo_carrito", articulo_carrito);
+		model.addAttribute("articulo_carrito", usuarioEnPagina.getCarrito().getArticulosCarrito().get(num-1));
+		model.addAttribute("comentarios", comentarios);
 		
 		return "ver_articuloCarrito";
 	}
@@ -109,14 +115,16 @@ public class SaleWebController {
 		//articulos.remove(num-1);
 		
 		//Articulo articulo_guardado = articulo_repository.findOne(id);
-		carrito.getArticulos_carrito().add(articulo);
-		carrito_repository.save(carrito);
-		articulo_repository.delete(articulo);
+		Carrito carritoUsuario = usuarioEnPagina.getCarrito();
+		carritoUsuario.getArticulosCarrito().add(articulo);
+		carrito_repository.save(carritoUsuario);
 		
 		return "articulo_añadido";
 	}
 	
 	//*** DONE ***
+	
+	//No me mola nadaaaaaaaa esta maaaaaal ¿{num} y luego long id?
 	@GetMapping("/carrito/{num}/eliminado")
 	public String eliminarArticuloCarrito (Model model,@PathVariable long id /*@PathVariable int num*/){
 		
@@ -130,9 +138,13 @@ public class SaleWebController {
 		@PostMapping("/usuario/nuevo")
 		public String UsuarioNuevo (Model model, Usuario usuario){
 			//Guardo el usuario creado
+			Carrito carritoUsuarioNuevo = new Carrito();
+			usuario.setCarrito(carritoUsuarioNuevo);
+			usuarioEnPagina = usuario;
 			usuario_repository.save(usuario);
 			return "usuario_registrado";
 		}
+		
 		@PostMapping("/usuario/comentario")
 		public String comentar (Model model, Comentario comentario){
 			//Guardo el comentario escrito creado
@@ -148,7 +160,6 @@ public class SaleWebController {
 			Comentario comentarioSeleccionado = comentarios.get(num-1);
 			comentarios.remove(comentarioSeleccionado);
 			comentario_repository.delete(comentarioSeleccionado);
-			model.addAttribute("comentarios",comentarios);
 			return "ver_articulo";
 		}
 		@GetMapping("/comentario/{num}")

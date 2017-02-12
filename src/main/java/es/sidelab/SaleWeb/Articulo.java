@@ -8,7 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import es.sidelab.SaleWeb.Carrito;
+import es.sidelab.SaleWeb.Comentario;
+import es.sidelab.SaleWeb.Pedido;
 
 //es una entidad de la clase
 @Entity
@@ -26,6 +31,11 @@ public class Articulo {
 	@OneToMany(cascade=CascadeType.ALL)
 	List<Comentario> listaComentarios = new ArrayList<>();
 	
+	@ManyToMany(mappedBy="articulosComprados")
+	private List<Pedido> articulosEnPedidos = new ArrayList<>();
+	
+	@ManyToMany(mappedBy="articulosCarrito")
+	private List<Carrito> articulosEnCarrito = new ArrayList<>();
 	
 	protected Articulo(){
 		//Sirve para que SpringData pueda instanciar el objeto 
@@ -60,10 +70,4 @@ public class Articulo {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-
-	
-	
-	
-
 }

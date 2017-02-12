@@ -1,13 +1,17 @@
 package es.sidelab.SaleWeb;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import es.sidelab.SaleWeb.Articulo;
 
 @Entity
 public class Pedido {
@@ -16,11 +20,8 @@ public class Pedido {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	@ManyToOne
-	private Usuario usuario;
-	
-	/*@OneToMany*/
-	private ArrayList<Articulo> articulosComprados;
+	@ManyToMany
+	private List<Articulo> articulosComprados = new ArrayList<Articulo>();
 	
 	public Pedido(){
 	}
@@ -29,3 +30,4 @@ public class Pedido {
 		this.articulosComprados = articulosComprados;
 	}
 }
+

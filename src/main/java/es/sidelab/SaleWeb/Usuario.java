@@ -4,12 +4,16 @@ package es.sidelab.SaleWeb;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import es.sidelab.SaleWeb.Carrito;
+import es.sidelab.SaleWeb.Pedido;
 
 @Entity
 public class Usuario {
@@ -39,10 +43,10 @@ public class Usuario {
 	private int piso;
 	private String letra; //2ºA o 2º1 damos las dos opciones con string
 	
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Pedido> pedidos = new ArrayList<>();
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Carrito carrito;
 	
 	public Usuario(){
@@ -176,6 +180,14 @@ public class Usuario {
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
+	
+	public Carrito getCarrito() {
+		return carrito;
+	}
+
+	public void setCarrito(Carrito carrito) {
+		this.carrito = carrito;
+	}
 
 	@Override
 	public String toString() {
@@ -185,4 +197,3 @@ public class Usuario {
 				+ escalera + ", piso=" + piso + ", letra=" + letra + "]";
 	}
 }
-

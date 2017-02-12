@@ -8,8 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import es.sidelab.SaleWeb.Articulo;
+import es.sidelab.SaleWeb.Usuario;
 
 @Entity
 public class Carrito {
@@ -17,13 +21,10 @@ public class Carrito {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
-	
-	private String nombre;
-	private long id_propietario;
-	
+		
 	//el carrito tiene varios articulos y se borran en cascada
-	@OneToMany(cascade=CascadeType.ALL)
-	List<Articulo> articulos_carrito = new ArrayList<>();
+	@ManyToMany
+	List<Articulo> articulosCarrito = new ArrayList<Articulo>();
 	
 	@OneToOne(mappedBy="carrito")
 	private Usuario usuario;
@@ -32,36 +33,40 @@ public class Carrito {
 		//Sirve para que SpringData pueda instanciar el objeto 
 	}
 	
-	public Carrito (String nombre, long id_propietario){
-		this.nombre = nombre;
-		this.id_propietario = id_propietario;
+	public Carrito (Usuario usuario){
+		this.usuario = usuario;
+		this.articulosCarrito = new ArrayList<>();
 	}
 
-	public String getNombre() {
-		return nombre;
+	public long getId() {
+		return id;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public long getId_propietario() {
-		return id_propietario;
+	public List<Articulo> getArticulosCarrito() {
+		return articulosCarrito;
 	}
 
-	public void setId_propietario(long id_propietario) {
-		this.id_propietario = id_propietario;
+	public void setArticulosCarrito(List<Articulo> articulosCarrito) {
+		this.articulosCarrito = articulosCarrito;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public List<Articulo> getArticulos_carrito() {
-		return articulos_carrito;
+		return articulosCarrito;
 	}
-
+	
 	public void setArticulos_carrito(List<Articulo> articulos_carrito) {
-		this.articulos_carrito = articulos_carrito;
+		this.articulosCarrito = articulos_carrito;
 	}
-	
-	
-	
-
 }
