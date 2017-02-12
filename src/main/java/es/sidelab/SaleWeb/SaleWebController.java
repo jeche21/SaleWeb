@@ -58,7 +58,6 @@ public class SaleWebController {
 	
 	@GetMapping("/tienda")
 	public String tienda (Model model){
-		model.addAttribute("usuario", usuarioEnPagina);
 		articulos = articulo_repository.findAll();
 		model.addAttribute("articulos", articulos);		
 		
