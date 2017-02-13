@@ -12,7 +12,8 @@ import javax.persistence.OneToOne;
 
 import es.sidelab.SaleWeb.Articulo;
 import es.sidelab.SaleWeb.Usuario;
-
+import es.sidelab.SaleWeb.Carrito;
+@Entity
 public class Carrito {
 	
 	@Id
