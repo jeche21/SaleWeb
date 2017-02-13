@@ -67,8 +67,9 @@ public class SaleWebController {
 	}
 	
 	@PostMapping("/loggin")
-	public String logginUsuario(Model model, @RequestParam String email, @RequestParam String contraseña){
+	public String logginUsuario(Model model, @RequestParam String email, @RequestParam String contraseña, HttpSession sesion){
 		Usuario usuario = usuario_repository.findByEmailAndContraseña(email, contraseña);
+		sesion.setAttribute("email", usuario.getEmail());
 		boolean existe = false;
 		boolean noexiste=false;
 		if(usuario==null){
@@ -78,7 +79,6 @@ public class SaleWebController {
 		else{
 			existe=true;
 			noexiste=false;
-			usuarioEnPagina = usuario;
 		}
 		model.addAttribute("existe", existe);
 		model.addAttribute("noexiste", noexiste);
@@ -123,18 +123,18 @@ public class SaleWebController {
 	
 	//*** DONE ***
 	@GetMapping("/carrito")
-	public String verCarrito (Model model){
-			
-		model.addAttribute("articulos_carrito",  usuarioEnPagina.getCarrito().getArticulosCarrito());		
+	public String verCarrito (Model model, HttpSession sesion){
+		Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
+		model.addAttribute("articulos_carrito",  usuario.getCarrito().getArticulosCarrito());		
 			
 		return "carrito";
 	}
 	
 	//*** DONE ***
 	@GetMapping("/carrito/{num}")
-	public String verArticuloCarrito (Model model, @PathVariable int num){
-		
-		model.addAttribute("articulo_carrito", usuarioEnPagina.getCarrito().getArticulosCarrito().get(num-1));
+	public String verArticuloCarrito (Model model, @PathVariable int num, HttpSession sesion){
+		Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
+		model.addAttribute("articulo_carrito", usuario.getCarrito().getArticulosCarrito().get(num-1));
 		
 		return "ver_articuloCarrito";
 	}
@@ -142,14 +142,15 @@ public class SaleWebController {
 	
 	//*** DONE ***
 	@GetMapping("/articulo/{id}/añadido")
-	public String añadirArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
+	public String añadirArticulo (Model model, @PathVariable long id, HttpSession sesion /*@PathVariable int num*/){
 		
 		Articulo articulo = articulo_repository.findOne(id);
 		//articulos_carrito.add(articulo);
 		//articulos.remove(num-1);
 		
 		//Articulo articulo_guardado = articulo_repository.findOne(id);
-		Carrito carritoUsuario = usuarioEnPagina.getCarrito();
+		Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
+		Carrito carritoUsuario = usuario.getCarrito();
 		carrito_repository.delete(carritoUsuario);
 		carritoUsuario.getArticulosCarrito().add(articulo);
 		carrito_repository.save(carritoUsuario);
@@ -161,33 +162,34 @@ public class SaleWebController {
 	
 	//No me mola nadaaaaaaaa esta maaaaaal ¿{num} y luego long id?
 	@GetMapping("/carrito/{num}/eliminado")
-	public String eliminarArticuloCarrito (Model model,/*@PathVariable long id*/ @PathVariable int num){
+	public String eliminarArticuloCarrito (Model model,/*@PathVariable long id*/ @PathVariable int num, HttpSession sesion){
 		
 		//articulos_carrito.remove(num-1);
-		
-		Carrito usuario = usuarioEnPagina.getCarrito();
+		Usuario usuarioBuscado = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
+		Carrito usuario = usuarioBuscado.getCarrito();
 		carrito_repository.delete(usuario);
-		usuarioEnPagina.getCarrito().getArticulos_carrito().remove(num-1);
+		usuarioBuscado.getCarrito().getArticulos_carrito().remove(num-1);
 		carrito_repository.save(usuario);
 		return "articuloCarritoEliminado";
 	}
 	
 		@PostMapping("/usuario/nuevo")
-		public String UsuarioNuevo (Model model, Usuario usuario){
+		public String UsuarioNuevo (Model model, Usuario usuario, HttpSession sesion){
 			//Guardo el usuario creado
+			sesion.setAttribute("email", usuario.getEmail());
 			Carrito carritoUsuarioNuevo = new Carrito();
 			usuario.setCarrito(carritoUsuarioNuevo);
-			usuarioEnPagina = usuario;
 			usuario_repository.save(usuario);
 			return "usuario_registrado";
 		}
 		
 		@PostMapping("/comentario/articulo/{id}")
-		public String comentar (Model model, Comentario comentario, @PathVariable long id){
+		public String comentar (Model model, Comentario comentario, @PathVariable long id, HttpSession sesion){
 			//Guardo el comentario escrito creado
 			Articulo articulo = articulo_repository.findOne(id);
 			comentario.setArticulo(articulo);
-			comentario.setAutor(usuarioEnPagina);
+			Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
+			comentario.setAutor(usuario);
 			articulo.getComentarios().add(comentario);
 			comentario_repository.save(comentario);
 			return "comentario_guardado";
