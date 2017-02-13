@@ -216,13 +216,17 @@ public class SaleWebController {
 		}
 		
 		@PostMapping("/carrito/comprar")
-		public String comprarArticulos(Model model, Carrito carrito){
-			List<Articulo> carritoLista = carrito.getArticulos_carrito();
+		public String comprarArticulos(Model model,Usuario usuario){
+			Carrito carrito = usuario.getCarrito();
+			List<Articulo> listaCarrito = carrito.getArticulos_carrito();
 			Pedido pedido =  new Pedido();
-			pedido.setArticulosComprados(carritoLista);
-			
+			pedido.setArticulosComprados(listaCarrito);
+			usuario_repository.delete(usuario);
+			usuario.getPedidos().add(pedido);
+			usuario_repository.save(usuario);
 			pedido_repository.save(pedido);
-			
+			model.addAttribute("usuario",usuario);
+			model.addAttribute("articulo_carrito", listaCarrito);
 			return "pedido";
 		}
 		
