@@ -1,10 +1,15 @@
 package es.sidelab.SaleWeb;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import es.sidelab.SaleWeb.Articulo;
+import es.sidelab.SaleWeb.Usuario;
 
 @Entity
 public class Comentario {
@@ -15,9 +20,11 @@ public class Comentario {
 	
 	private String cuerpo;
 	
-	@OneToOne
+	@ManyToOne
 	private Usuario autor;
 	
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Articulo articulo;
 	
 	protected Comentario(){
 		//Sirve para que SpringData pueda instanciar el objeto 
@@ -42,5 +49,13 @@ public class Comentario {
 
 	public void setAutor(Usuario autor) {
 		this.autor = autor;
+	}
+
+	public Articulo getArticulo() {
+		return articulo;
+	}
+
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
 	}
 }

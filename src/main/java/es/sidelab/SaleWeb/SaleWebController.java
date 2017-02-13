@@ -14,6 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import es.sidelab.SaleWeb.Articulo;
+import es.sidelab.SaleWeb.ArticuloRepository;
+import es.sidelab.SaleWeb.CarritoRepository;
+import es.sidelab.SaleWeb.Comentario;
+import es.sidelab.SaleWeb.ComentarioRepository;
+import es.sidelab.SaleWeb.Usuario;
+import es.sidelab.SaleWeb.UsuarioRepository;
 import es.sidelab.SaleWeb.Carrito;
 import es.sidelab.SaleWeb.Comentario;
 
@@ -34,6 +41,7 @@ public class SaleWebController {
 	@Autowired
 	private UsuarioRepository usuario_repository;
 	
+	private Carrito carrito;
 	
 	private List<Articulo> articulos = new ArrayList<>();
 	//private List<Articulo> articulos_carrito = new ArrayList<>();
@@ -58,9 +66,7 @@ public class SaleWebController {
 	
 	@GetMapping("/tienda")
 	public String tienda (Model model){
-		articulos = articulo_repository.findAll();
-		model.addAttribute("articulos", articulos);		
-		
+		model.addAttribute("articulos", articulo_repository.findAll());
 		return "tienda";
 	}
 	
@@ -74,14 +80,14 @@ public class SaleWebController {
 	}
 	
 	//*** DONE ***
-	@GetMapping("/articulo/{num}")
-	public String verArticulo (Model model, /*@PathVariable long id*/ @PathVariable int num){
+	@GetMapping("/articulo/{id}")
+	public String verArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
 		
-		Articulo articulo = articulos.get(num-1);
+		Articulo articulo = articulo_repository.findOne(id);
 		model.addAttribute("articulo", articulo);
 		//Articulo articulo_guardado = articulo_repository.findOne(id);
 		//model.addAttribute("articulo",articulo_guardado);
-		
+		model.addAttribute("comentarios",comentario_repository.findByArticulo(articulo));
 		return "ver_articulo";
 	}
 	
@@ -106,15 +112,16 @@ public class SaleWebController {
 	
 	
 	//*** DONE ***
-	@GetMapping("/articulo/{num}/añadido")
-	public String añadirArticulo (Model model, /*@PathVariable long id*/ @PathVariable int num){
+	@GetMapping("/articulo/{id}/añadido")
+	public String añadirArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
 		
-		Articulo articulo = articulos.get(num-1);
+		Articulo articulo = articulo_repository.findOne(id);
 		//articulos_carrito.add(articulo);
 		//articulos.remove(num-1);
 		
 		//Articulo articulo_guardado = articulo_repository.findOne(id);
 		Carrito carritoUsuario = usuarioEnPagina.getCarrito();
+		carrito_repository.delete(carritoUsuario);
 		carritoUsuario.getArticulosCarrito().add(articulo);
 		carrito_repository.save(carritoUsuario);
 		
@@ -125,12 +132,13 @@ public class SaleWebController {
 	
 	//No me mola nadaaaaaaaa esta maaaaaal ¿{num} y luego long id?
 	@GetMapping("/carrito/{num}/eliminado")
-	public String eliminarArticuloCarrito (Model model,@PathVariable long id /*@PathVariable int num*/){
+	public String eliminarArticuloCarrito (Model model,/*@PathVariable long id*/ @PathVariable int num){
 		
 		//articulos_carrito.remove(num-1);
-		Articulo articulo_guardado = articulo_repository.findOne(id);
-		articulo_repository.delete(articulo_guardado);
-		
+		Articulo articuloElininar = usuarioEnPagina.getCarrito().getArticulos_carrito().remove(num-1);
+		Carrito usuario = usuarioEnPagina.getCarrito();
+		carrito_repository.delete(usuario);
+		carrito_repository.save(usuario);
 		return "articuloCarritoEliminado";
 	}
 	
@@ -144,26 +152,26 @@ public class SaleWebController {
 			return "usuario_registrado";
 		}
 		
-		@PostMapping("/usuario/comentario")
-		public String comentariosLista (Model model,Comentario comentario){
+		@PostMapping("/comentario/articulo/{id}")
+		public String comentar (Model model, Comentario comentario, @PathVariable long id){
+			//Guardo el comentario escrito creado
+			Articulo articulo = articulo_repository.findOne(id);
+			comentario.setArticulo(articulo);
+			comentario.setAutor(usuarioEnPagina);
+			articulo.getComentarios().add(comentario);
 			comentario_repository.save(comentario);
-			comentarios.add(comentario);
-			
-			model.addAttribute("comentarios",comentarios);
 			return "comentario_guardado";
 		}
-		
-		@GetMapping("/comentario/eliminado")
-		public String eliminarComentario (Model model,Comentario comentario){
-			//borramos el comentario tanto de la base de datos....
-			comentario_repository.delete(comentario);
-			//como de la lista de comentarios,(que la ponemos para poder mostrar todos los comentarios a la lista que tenemos!!
-			comentarios.remove(comentario);
-			//finalmente mostramos de nuevo el ver articulo con la lista de los comentarios sin el que acabamos de borrar
+		//tenemos que poner un boton eliminar al lado de cada comentario
+		@GetMapping("/comentario/{num}/eliminado")
+		public String comentarioEliminar (Model model,@PathVariable int num){
 			return "ver_articulo";
 		}
 		
-		
-	
-	
+		@GetMapping("/articulo/comentario/{id}")
+		public String verComentario(Model model, @PathVariable long id){
+			
+			model.addAttribute("comentario", comentario_repository.findOne(id));
+			return "ver_comentario";
+		}
 }

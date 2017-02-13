@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import es.sidelab.SaleWeb.Comentario;
 import es.sidelab.SaleWeb.Carrito;
 import es.sidelab.SaleWeb.Pedido;
 
@@ -48,6 +49,10 @@ public class Usuario {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Carrito carrito;
+	
+	@OneToMany(mappedBy="autor")
+	private List<Comentario> comentarios = new ArrayList<Comentario>();
+	
 	
 	public Usuario(){
 	}
@@ -197,3 +202,4 @@ public class Usuario {
 				+ escalera + ", piso=" + piso + ", letra=" + letra + "]";
 	}
 }
+

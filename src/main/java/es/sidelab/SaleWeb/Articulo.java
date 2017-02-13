@@ -27,15 +27,14 @@ public class Articulo {
 	private String seccion;
 	private String descripcion;
 	
-	//uno articulo tiene varios comentarios y se borran en cascada
-	@OneToMany(cascade=CascadeType.ALL)
-	List<Comentario> listaComentarios = new ArrayList<>();
-	
 	@ManyToMany(mappedBy="articulosComprados")
-	private List<Pedido> articulosEnPedidos = new ArrayList<>();
+	private List<Pedido> articulosEnPedidos = new ArrayList<Pedido>();
 	
 	@ManyToMany(mappedBy="articulosCarrito")
-	private List<Carrito> articulosEnCarrito = new ArrayList<>();
+	private List<Carrito> articulosEnCarrito = new ArrayList<Carrito>();
+	
+	@OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL)
+	private List<Comentario> comentarios = new ArrayList<Comentario>();
 	
 	protected Articulo(){
 		//Sirve para que SpringData pueda instanciar el objeto 
@@ -69,5 +68,37 @@ public class Articulo {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public List<Pedido> getArticulosEnPedidos() {
+		return articulosEnPedidos;
+	}
+
+	public void setArticulosEnPedidos(List<Pedido> articulosEnPedidos) {
+		this.articulosEnPedidos = articulosEnPedidos;
+	}
+
+	public List<Carrito> getArticulosEnCarrito() {
+		return articulosEnCarrito;
+	}
+
+	public void setArticulosEnCarrito(List<Carrito> articulosEnCarrito) {
+		this.articulosEnCarrito = articulosEnCarrito;
+	}
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}
 }
