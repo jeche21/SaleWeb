@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+
 import es.sidelab.SaleWeb.Comentario;
 import es.sidelab.SaleWeb.Carrito;
 import es.sidelab.SaleWeb.Pedido;
@@ -192,6 +193,22 @@ public class Usuario {
 
 	public void setCarrito(Carrito carrito) {
 		this.carrito = carrito;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 	@Override

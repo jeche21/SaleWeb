@@ -3,6 +3,7 @@ package es.sidelab.SaleWeb;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import es.sidelab.SaleWeb.Articulo;
 import es.sidelab.SaleWeb.ArticuloRepository;
@@ -59,9 +61,28 @@ public class SaleWebController {
 		//articulos_carrito.add(new Articulo("prueba", "prueba", "prueba"));
 	}
 	
-	@RequestMapping("/")
+	@GetMapping("/")
 	public String principal (){
 		return "principal";
+	}
+	
+	@PostMapping("/loggin")
+	public String logginUsuario(Model model, @RequestParam String email, @RequestParam String contraseña){
+		Usuario usuario = usuario_repository.findByEmailAndContraseña(email, contraseña);
+		boolean existe = false;
+		boolean noexiste=false;
+		if(usuario==null){
+			existe=false;
+			noexiste=true;
+		}
+		else{
+			existe=true;
+			noexiste=false;
+			usuarioEnPagina = usuario;
+		}
+		model.addAttribute("existe", existe);
+		model.addAttribute("noexiste", noexiste);
+		return "loggin_usuario";
 	}
 	
 	@GetMapping("/tienda")
