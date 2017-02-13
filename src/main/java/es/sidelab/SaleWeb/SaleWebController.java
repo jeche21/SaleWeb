@@ -91,6 +91,15 @@ public class SaleWebController {
 		return "ver_articulo";
 	}
 	
+	@GetMapping("/articulo/{id}/eliminar")
+	public String eliminarArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
+		
+		Articulo articulo = articulo_repository.findOne(id);
+		articulo_repository.delete(articulo);
+		model.addAttribute("articulos", articulo_repository.findAll());
+		return "articulo_eliminado";
+	}
+	
 	//*** DONE ***
 	@GetMapping("/carrito")
 	public String verCarrito (Model model){
@@ -134,9 +143,10 @@ public class SaleWebController {
 	public String eliminarArticuloCarrito (Model model,/*@PathVariable long id*/ @PathVariable int num){
 		
 		//articulos_carrito.remove(num-1);
-		usuarioEnPagina.getCarrito().getArticulos_carrito().remove(num-1);
+		
 		Carrito usuario = usuarioEnPagina.getCarrito();
 		carrito_repository.delete(usuario);
+		usuarioEnPagina.getCarrito().getArticulos_carrito().remove(num-1);
 		carrito_repository.save(usuario);
 		return "articuloCarritoEliminado";
 	}
