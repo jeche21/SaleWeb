@@ -41,9 +41,9 @@ public class SaleWebController {
 	@Autowired
 	private UsuarioRepository usuario_repository;
 	
-	private Carrito carrito;
+	//private Carrito carrito;
 	
-	private List<Articulo> articulos = new ArrayList<>();
+	//private List<Articulo> articulos = new ArrayList<>();
 	//private List<Articulo> articulos_carrito = new ArrayList<>();
 	//private List<Usuario> usuarios = new ArrayList<>();
 	private List<Comentario> comentarios = new ArrayList<>();
@@ -53,8 +53,8 @@ public class SaleWebController {
 	@PostConstruct
 	public void inicio(){
 		
-		articulo_repository.save(new Articulo("Suricato", "Animal", "Fiera mascota"));
-		articulo_repository.save(new Articulo("Palmera", "Bollo", "Chocolate+Hojaldre"));
+		//articulo_repository.save(new Articulo("Suricato", "Animal", "Fiera mascota"));
+		//articulo_repository.save(new Articulo("Palmera", "Bollo", "Chocolate+Hojaldre"));
 		
 		//articulos_carrito.add(new Articulo("prueba", "prueba", "prueba"));
 	}
@@ -105,7 +105,6 @@ public class SaleWebController {
 	public String verArticuloCarrito (Model model, @PathVariable int num){
 		
 		model.addAttribute("articulo_carrito", usuarioEnPagina.getCarrito().getArticulosCarrito().get(num-1));
-		model.addAttribute("comentarios", comentarios);
 		
 		return "ver_articuloCarrito";
 	}
@@ -135,7 +134,7 @@ public class SaleWebController {
 	public String eliminarArticuloCarrito (Model model,/*@PathVariable long id*/ @PathVariable int num){
 		
 		//articulos_carrito.remove(num-1);
-		Articulo articuloElininar = usuarioEnPagina.getCarrito().getArticulos_carrito().remove(num-1);
+		usuarioEnPagina.getCarrito().getArticulos_carrito().remove(num-1);
 		Carrito usuario = usuarioEnPagina.getCarrito();
 		carrito_repository.delete(usuario);
 		carrito_repository.save(usuario);
@@ -163,9 +162,13 @@ public class SaleWebController {
 			return "comentario_guardado";
 		}
 		//tenemos que poner un boton eliminar al lado de cada comentario
-		@GetMapping("/comentario/{num}/eliminado")
-		public String comentarioEliminar (Model model,@PathVariable int num){
-			return "ver_articulo";
+		@GetMapping("/comentario/{id}/eliminado")
+		public String comentarioEliminar (Model model,@PathVariable long id){
+			//Comentario comentarioSaved = comentario_repository.findOne(id);
+			comentario_repository.delete(id);
+			//comentarios.remove(comentarioSaved);
+			//model.addAttribute(comentario_repository.findAll());
+			return "comentario_eliminado";
 		}
 		
 		@GetMapping("/articulo/comentario/{id}")

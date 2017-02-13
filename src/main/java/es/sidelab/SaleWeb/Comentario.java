@@ -23,7 +23,7 @@ public class Comentario {
 	@ManyToOne
 	private Usuario autor;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	private Articulo articulo;
 	
 	protected Comentario(){
