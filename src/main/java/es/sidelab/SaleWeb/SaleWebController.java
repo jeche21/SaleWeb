@@ -43,6 +43,9 @@ public class SaleWebController {
 	@Autowired
 	private UsuarioRepository usuario_repository;
 	
+	@Autowired
+	private PedidoRepository pedido_repository;
+	
 	//private Carrito carrito;
 	
 	//private List<Articulo> articulos = new ArrayList<>();
@@ -51,6 +54,7 @@ public class SaleWebController {
 	private List<Comentario> comentarios = new ArrayList<>();
 	
 	Usuario usuarioEnPagina;
+	private Pedido pedido;
 	
 	@PostConstruct
 	public void inicio(){
@@ -207,5 +211,21 @@ public class SaleWebController {
 			
 			model.addAttribute("comentario", comentario_repository.findOne(id));
 			return "ver_comentario";
+		}
+		
+		@PostMapping("/carrito/comprar")
+		public String comprarArticulos(Model model, Carrito carrito){
+			List<Articulo> carritoLista = carrito.getArticulos_carrito();
+			Pedido pedido =  new Pedido();
+			pedido.setArticulosComprados(carritoLista);
+			
+			pedido_repository.save(pedido);
+			
+			return "pedido";
+		}
+		
+		@PostMapping("/pedido")
+		public String pedido(){
+			return "pedido_realizado";
 		}
 }

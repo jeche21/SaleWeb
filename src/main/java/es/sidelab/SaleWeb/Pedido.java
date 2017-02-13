@@ -27,5 +27,22 @@ public class Pedido {
 	public Pedido(ArrayList<Articulo> articulosComprados){
 		this.articulosComprados = articulosComprados;
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public List<Articulo> getArticulosComprados() {
+		return articulosComprados;
+	}
+
+	public void setArticulosComprados(List<Articulo> articulosComprados) {
+		this.articulosComprados = articulosComprados;
+	}
+	
 }
 
