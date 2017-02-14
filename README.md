@@ -22,6 +22,13 @@ Pueden acceder al historial de pedidos realizados anteriormente, descargar las f
 Nuestra aplicacion web usara un servicio interno que controlara el stock del almacen de nuestra tienda on-line.
 Comprobara si el producto que el usuario quiere comprar esta disponible o no, permitiendo la operacion en caso de que si haya disponibilidad. Si no la hay, el servicio interno mandara una notificacion de error informando al usuario de que el producto que quiere comprar no esta disponible en ese momento y ofrecera un tiempo estimado en el cual el producto sera repuesto.
 
+###MODELO UML Y MODELO ENTIDAD/RELACION (E/R)###
+A continuacón mostramos el modelo entidad-relacion y el modelo UML de nuestra base de datos:
+
+![](imagenes/UML.png)
+
+![](imagenes/modelo.png)
+
 ###INTEGRANTES DEL GRUPO###
 1. César Cuesta Vera: Correo Electrónico: c.cuestav@alumnos.urjc.es
 2. Jesús Rosa Martín: Correo Electrónico: j.rosa@alumnos.urjc.es
