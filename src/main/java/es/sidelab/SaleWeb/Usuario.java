@@ -1,6 +1,7 @@
 package es.sidelab.SaleWeb;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class Usuario {
 	private int piso;
 	private String letra; //2ºA o 2º1 damos las dos opciones con string
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL)
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	@OneToOne(cascade = CascadeType.ALL)

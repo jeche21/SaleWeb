@@ -129,8 +129,7 @@ public class SaleWebController {
 	@GetMapping("/carrito")
 	public String verCarrito (Model model, HttpSession sesion){
 		Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
-		model.addAttribute("articulos_carrito",  usuario.getCarrito().getArticulosCarrito());		
-			
+		model.addAttribute("articulos_carrito",  usuario.getCarrito().getArticulosCarrito());
 		return "carrito";
 	}
 	
@@ -172,7 +171,7 @@ public class SaleWebController {
 		Usuario usuarioBuscado = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
 		Carrito usuario = usuarioBuscado.getCarrito();
 		carrito_repository.delete(usuario);
-		usuarioBuscado.getCarrito().getArticulos_carrito().remove(num-1);
+		usuarioBuscado.getCarrito().getArticulosCarrito().remove(num-1);
 		carrito_repository.save(usuario);
 		return "articuloCarritoEliminado";
 	}
@@ -216,22 +215,19 @@ public class SaleWebController {
 		}
 		
 		@PostMapping("/carrito/comprar")
-		public String comprarArticulos(Model model,Usuario usuario){
+		public String comprarArticulos(Model model, HttpSession sesion){
+			Usuario usuario =  usuario_repository.findByEmail((String) sesion.getAttribute("email"));
 			Carrito carrito = usuario.getCarrito();
-			List<Articulo> listaCarrito = carrito.getArticulos_carrito();
-			Pedido pedido =  new Pedido();
-			pedido.setArticulosComprados(listaCarrito);
-			usuario_repository.delete(usuario);
-			usuario.getPedidos().add(pedido);
-			usuario_repository.save(usuario);
-			pedido_repository.save(pedido);
 			model.addAttribute("usuario",usuario);
-			model.addAttribute("articulo_carrito", listaCarrito);
+			model.addAttribute("articulos_carrito", carrito.getArticulosCarrito());
 			return "pedido";
 		}
 		
 		@PostMapping("/pedido")
-		public String pedido(){
+		public String pedido(HttpSession sesion){
+			Pedido pedido = new Pedido();
+			Usuario usuario =  usuario_repository.findByEmail((String) sesion.getAttribute("email"));
+			List<Articulo> articulosPedido = usuario.getCarrito().getArticulosCarrito();
 			return "pedido_realizado";
 		}
 }

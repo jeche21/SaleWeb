@@ -62,12 +62,4 @@ public class Carrito {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
-	public List<Articulo> getArticulos_carrito() {
-		return articulosCarrito;
-	}
-	
-	public void setArticulos_carrito(List<Articulo> articulos_carrito) {
-		this.articulosCarrito = articulos_carrito;
-	}
 }
