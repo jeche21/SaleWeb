@@ -73,16 +73,16 @@ public class SaleWebController {
 	@PostMapping("/loggin")
 	public String logginUsuario(Model model, @RequestParam String email, @RequestParam String contraseña, HttpSession sesion){
 		Usuario usuario = usuario_repository.findByEmailAndContraseña(email, contraseña);
-		sesion.setAttribute("email", usuario.getEmail());
 		boolean existe = false;
-		boolean noexiste=false;
-		if(usuario==null){
-			existe=false;
-			noexiste=true;
-		}
-		else{
+		boolean noexiste = false;
+		if(usuario != null){
 			existe=true;
 			noexiste=false;
+			sesion.setAttribute("email", usuario.getEmail());
+		}
+		else{
+			existe=false;
+			noexiste=true;
 		}
 		model.addAttribute("existe", existe);
 		model.addAttribute("noexiste", noexiste);
@@ -225,7 +225,6 @@ public class SaleWebController {
 		
 		@PostMapping("/pedido")
 		public String pedido(HttpSession sesion){
-			Pedido pedido = new Pedido();
 			Usuario usuario =  usuario_repository.findByEmail((String) sesion.getAttribute("email"));
 			List<Articulo> articulosPedido = usuario.getCarrito().getArticulosCarrito();
 			return "pedido_realizado";
