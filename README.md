@@ -24,7 +24,11 @@ Comprobara si el producto que el usuario quiere comprar esta disponible o no, pe
 
 ###MODELO UML Y MODELO ENTIDAD/RELACION (E/R)###
 A continuacón mostramos el modelo entidad-relacion y el modelo UML de nuestra base de datos:
-![](imagenes/UML.jpg)
+
+![](imagenes/UML.png)
+
+![](imagenes/modelo.png)
+
 ###INTEGRANTES DEL GRUPO###
 1. César Cuesta Vera: Correo Electrónico: c.cuestav@alumnos.urjc.es
 2. Jesús Rosa Martín: Correo Electrónico: j.rosa@alumnos.urjc.es
