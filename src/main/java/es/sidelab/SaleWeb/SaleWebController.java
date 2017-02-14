@@ -58,11 +58,8 @@ public class SaleWebController {
 	
 	@PostConstruct
 	public void inicio(){
-		
-		//articulo_repository.save(new Articulo("Suricato", "Animal", "Fiera mascota"));
-		//articulo_repository.save(new Articulo("Palmera", "Bollo", "Chocolate+Hojaldre"));
-		
-		//articulos_carrito.add(new Articulo("prueba", "prueba", "prueba"));
+		articulo_repository.save(new Articulo("Suricato", "Animal", "Fiera mascota"));
+		articulo_repository.save(new Articulo("Palmera", "Bollo", "Chocolate+Hojaldre"));
 	}
 	
 	@GetMapping("/")
@@ -95,16 +92,13 @@ public class SaleWebController {
 		return "tienda";
 	}
 	
-	//*** DONE ***
 	@PostMapping("/articulo/nuevo")
 	public String nuevoArticulo(Model model, Articulo articulo) {
 		
-		//articulos.add(articulo);
 		articulo_repository.save(articulo);
 		return "articulo_guardado";
 	}
 	
-	//*** DONE ***
 	@GetMapping("/articulo/{id}")
 	public String verArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
 		
@@ -125,16 +119,16 @@ public class SaleWebController {
 		return "articulo_eliminado";
 	}
 	
-	//*** DONE ***
 	@GetMapping("/carrito")
 	public String verCarrito (Model model, HttpSession sesion){
 		Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
-		model.addAttribute("articulos_carrito",  usuario.getCarrito().getArticulosCarrito());		
+		model.addAttribute("articulos_carrito",  usuario.getCarrito().getArticulosCarrito());
 			
+		//model.addAttribute("articulos_carrito", carrito.getArticulos_carrito());
+		
 		return "carrito";
 	}
 	
-	//*** DONE ***
 	@GetMapping("/carrito/{num}")
 	public String verArticuloCarrito (Model model, @PathVariable int num, HttpSession sesion){
 		Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
@@ -162,9 +156,6 @@ public class SaleWebController {
 		return "articulo_añadido";
 	}
 	
-	//*** DONE ***
-	
-	//No me mola nadaaaaaaaa esta maaaaaal ¿{num} y luego long id?
 	@GetMapping("/carrito/{num}/eliminado")
 	public String eliminarArticuloCarrito (Model model,/*@PathVariable long id*/ @PathVariable int num, HttpSession sesion){
 		
@@ -177,61 +168,83 @@ public class SaleWebController {
 		return "articuloCarritoEliminado";
 	}
 	
-		@PostMapping("/usuario/nuevo")
-		public String UsuarioNuevo (Model model, Usuario usuario, HttpSession sesion){
-			//Guardo el usuario creado
-			sesion.setAttribute("email", usuario.getEmail());
-			Carrito carritoUsuarioNuevo = new Carrito();
-			usuario.setCarrito(carritoUsuarioNuevo);
-			usuario_repository.save(usuario);
-			return "usuario_registrado";
-		}
+	@PostMapping("/usuario/nuevo")
+	public String UsuarioNuevo (Model model, Usuario usuario, HttpSession sesion){
+		//Guardo el usuario creado
+		sesion.setAttribute("email", usuario.getEmail());
+		Carrito carritoUsuarioNuevo = new Carrito();
+		usuario.setCarrito(carritoUsuarioNuevo);
+		usuario_repository.save(usuario);
+		return "usuario_registrado";
+	}
+	
+	@PostMapping("/comentario/articulo/{id}")
+	public String comentar (Model model, Comentario comentario, @PathVariable long id, HttpSession sesion){
+		//Guardo el comentario escrito creado
+		Articulo articulo = articulo_repository.findOne(id);
+		comentario.setArticulo(articulo);
+		Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
+		comentario.setAutor(usuario);
+		articulo.getComentarios().add(comentario);
+		comentario_repository.save(comentario);
+		return "comentario_guardado";
+	}
+	
+	//tenemos que poner un boton eliminar al lado de cada comentario
+	@GetMapping("/comentario/{id}/eliminado")
+	public String comentarioEliminar (Model model,@PathVariable long id){
+		//Comentario comentarioSaved = comentario_repository.findOne(id);
+		comentario_repository.delete(id);
+		//comentarios.remove(comentarioSaved);
+		//model.addAttribute(comentario_repository.findAll());
+		return "comentario_eliminado";
+	}
 		
-		@PostMapping("/comentario/articulo/{id}")
-		public String comentar (Model model, Comentario comentario, @PathVariable long id, HttpSession sesion){
-			//Guardo el comentario escrito creado
-			Articulo articulo = articulo_repository.findOne(id);
-			comentario.setArticulo(articulo);
-			Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
-			comentario.setAutor(usuario);
-			articulo.getComentarios().add(comentario);
-			comentario_repository.save(comentario);
-			return "comentario_guardado";
-		}
-		//tenemos que poner un boton eliminar al lado de cada comentario
-		@GetMapping("/comentario/{id}/eliminado")
-		public String comentarioEliminar (Model model,@PathVariable long id){
-			//Comentario comentarioSaved = comentario_repository.findOne(id);
-			comentario_repository.delete(id);
-			//comentarios.remove(comentarioSaved);
-			//model.addAttribute(comentario_repository.findAll());
-			return "comentario_eliminado";
-		}
+	@GetMapping("/articulo/comentario/{id}")
+	public String verComentario(Model model, @PathVariable long id){
 		
-		@GetMapping("/articulo/comentario/{id}")
-		public String verComentario(Model model, @PathVariable long id){
-			
-			model.addAttribute("comentario", comentario_repository.findOne(id));
-			return "ver_comentario";
-		}
+		model.addAttribute("comentario", comentario_repository.findOne(id));
+		return "ver_comentario";
+	}
 		
-		@PostMapping("/carrito/comprar")
-		public String comprarArticulos(Model model,Usuario usuario){
-			Carrito carrito = usuario.getCarrito();
-			List<Articulo> listaCarrito = carrito.getArticulos_carrito();
-			Pedido pedido =  new Pedido();
-			pedido.setArticulosComprados(listaCarrito);
-			usuario_repository.delete(usuario);
-			usuario.getPedidos().add(pedido);
-			usuario_repository.save(usuario);
-			pedido_repository.save(pedido);
-			model.addAttribute("usuario",usuario);
-			model.addAttribute("articulo_carrito", listaCarrito);
-			return "pedido";
-		}
+	@PostMapping("/carrito/comprar")
+	public String comprarArticulos(Model model,Usuario usuario){
+		Carrito carrito = usuario.getCarrito();
+		List<Articulo> listaCarrito = carrito.getArticulos_carrito();
+		Pedido pedido =  new Pedido();
+		pedido.setArticulosComprados(listaCarrito);
+		usuario_repository.delete(usuario);
+		usuario.getPedidos().add(pedido);
+		usuario_repository.save(usuario);
+		pedido_repository.save(pedido);
+		model.addAttribute("usuario",usuario);
+		model.addAttribute("articulo_carrito", listaCarrito);
+		return "pedido";
+	}
+	
+	@PostMapping("/pedido")
+	public String pedido(){
+		return "pedido_realizado";
+	}
+	
+	//tenemos que poner un boton eliminar al lado de cada comentario
+	@GetMapping("/comentario/{num}/eliminado")
+	public String comentarioEliminar (Model model,@PathVariable int num){
 		
-		@PostMapping("/pedido")
-		public String pedido(){
-			return "pedido_realizado";
-		}
+		Comentario comentarioSeleccionado = comentarios.get(num-1);
+		comentarios.remove(comentarioSeleccionado);
+		comentario_repository.delete(comentarioSeleccionado);
+		model.addAttribute("comentarios",comentarios);
+		return "ver_articulo";
+	}
+		
+	@GetMapping("/comentario/{num}")
+	public String verComentario(Model model,@PathVariable int num){
+		
+		Comentario comentario = comentarios.get(num-1);
+		model.addAttribute("articulo", comentario);
+		return "ver_comentario";
+	}
+	
+		
 }

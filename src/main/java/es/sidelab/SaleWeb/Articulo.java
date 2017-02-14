@@ -78,6 +78,11 @@ public class Articulo {
 		this.id = id;
 	}
 
+	
+	
+	
+	
+
 	public List<Pedido> getArticulosEnPedidos() {
 		return articulosEnPedidos;
 	}

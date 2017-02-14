@@ -7,10 +7,15 @@
  	<p>seccion: {{articulo.seccion}}</p>
  	<p>Descripcion: {{articulo.descripcion}}</p>
 
+<<<<<<< Upstream, based on branch 'master' of https://github.com/jeche21/SaleWeb.git
  	<form action="/comentario/articulo/{{id}}" method="post" accept-charset="utf-8">
+=======
+ 	<form action="/articulo/{num}/nuevocomentario" method="post" accept-charset="utf-8">
+>>>>>>> d905837 Pruebas de desarrollo anterior
  		<p>Comentario: <textarea name="cuerpo" placeholder="Escriba aqui su comentario..."></textarea></p>
  		<input type="submit" name="comentar" value="Comentar">
  	</form>
+ 	
 	<p>Comentarios: </p>
 	{{#comentarios}}
 	<p><a href="/articulo/comentario/{{id}}">{{cuerpo}}</a><br><p>
