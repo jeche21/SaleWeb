@@ -22,12 +22,71 @@ Pueden acceder al historial de pedidos realizados anteriormente, descargar las f
 Nuestra aplicacion web usara un servicio interno que controlara el stock del almacen de nuestra tienda on-line.
 Comprobara si el producto que el usuario quiere comprar esta disponible o no, permitiendo la operacion en caso de que si haya disponibilidad. Si no la hay, el servicio interno mandara una notificacion de error informando al usuario de que el producto que quiere comprar no esta disponible en ese momento y ofrecera un tiempo estimado en el cual el producto sera repuesto.
 
-###MODELO UML Y MODELO ENTIDAD/RELACION (E/R)###
-A continuacón mostramos el modelo entidad-relacion y el modelo UML de nuestra base de datos:
+###MODELO UML, MODELO ENTIDAD/RELACION (E/R), DIAGRAMA DE NAVEGACION Y DESCRIPCION DE VISTAS###
+A continuación mostramos el modelo UML, el modelo entidad/relacion, el diagrama de navegacion de la aplicacion y cada una de las vistas con su correspondiente descripcion:
 
+**Diagrama UML**
 ![](imagenes/UML.png)
 
+**Diagrama Entidad/Relacion**
 ![](imagenes/modelo.png)
+
+**Diagrama de navegacion**
+![](imagenes/diagrama_navegacion.png)
+
+**articulo_añadido.html**
+![](imagenes/articulo_añadido.jpg)
+
+**articulo_eliminado.html**
+![](imagenes/articulo_eliminado.jpg)
+
+**articulo_guardado.hmtl**
+![](imagenes/articulo_guardado.jpg)
+
+**articuloCarritoEliminado.html**
+![](imagenes/articuloCarritoEliminado.jpg)
+
+**carrito.html**
+![](imagenes/carrito.jpg)
+
+**comentario_eliminado.html**
+![](imagenes/comentario_eliminado.jpg)
+
+**comentario_guardado.html**
+![](imagenes/comentario_guardado.jpg)
+
+**loggin_usuario.html**
+![](imagenes/loggin_usuario.jpg)
+
+**nuevoArticulo.html**
+![](imagenes/nuevoArticulo.jpg)
+
+**nuevoUsuario.html**
+![](imagenes/nuevoUsuario.jpg)
+
+**pedido.html**
+![](imagenes/pedido.jpg)
+
+**pedido_realizado.html**
+![](imagenes/pedido_realizado.jpg)
+
+**principal.html**
+![](imagenes/principal.jpg)
+
+**tienda.html**
+![](imagenes/tienda.jpg)
+
+**usuario_registrado.html**
+![](imagenes/usuario_registrado.jpg)
+
+**ver_articulo.html**
+![](imagenes/ver_articulo.jpg)
+
+**ver_articuloCarrito.html**
+![](imagenes/ver_articuloCarrito.jpg)
+
+**ver_comentario.html**
+![](imagenes/ver_comentario.jpg)
 
 ###INTEGRANTES DEL GRUPO###
 1. César Cuesta Vera: Correo Electrónico: c.cuestav@alumnos.urjc.es
