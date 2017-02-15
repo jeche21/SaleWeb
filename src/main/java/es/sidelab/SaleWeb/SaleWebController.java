@@ -182,6 +182,7 @@ public class SaleWebController {
 			sesion.setAttribute("email", usuario.getEmail());
 			Carrito carritoUsuarioNuevo = new Carrito();
 			usuario.setCarrito(carritoUsuarioNuevo);
+			carrito_repository.save(carritoUsuarioNuevo);
 			usuario_repository.save(usuario);
 			return "usuario_registrado";
 		}
@@ -227,6 +228,15 @@ public class SaleWebController {
 		public String pedido(HttpSession sesion){
 			Usuario usuario =  usuario_repository.findByEmail((String) sesion.getAttribute("email"));
 			List<Articulo> articulosPedido = usuario.getCarrito().getArticulosCarrito();
+			Pedido pedido = new Pedido();
+			pedido.setUsuario(usuario);
+			for(Articulo articulo: articulosPedido){
+				pedido.getArticulosComprados().add(articulo);
+			}
+			pedido_repository.save(pedido);
+			long id = usuario.getCarrito().getId();
+			Carrito carrito = carrito_repository.findOne(id);
+			carrito_repository.delete(carrito);
 			return "pedido_realizado";
 		}
 }
