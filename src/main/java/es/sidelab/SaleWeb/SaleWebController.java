@@ -13,9 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.sidelab.SaleWeb.Pedido;
+import es.sidelab.SaleWeb.PedidoRepository;
 import es.sidelab.SaleWeb.Articulo;
 import es.sidelab.SaleWeb.ArticuloRepository;
 import es.sidelab.SaleWeb.CarritoRepository;
@@ -24,7 +25,6 @@ import es.sidelab.SaleWeb.ComentarioRepository;
 import es.sidelab.SaleWeb.Usuario;
 import es.sidelab.SaleWeb.UsuarioRepository;
 import es.sidelab.SaleWeb.Carrito;
-import es.sidelab.SaleWeb.Comentario;
 
 
 
@@ -182,7 +182,6 @@ public class SaleWebController {
 			sesion.setAttribute("email", usuario.getEmail());
 			Carrito carritoUsuarioNuevo = new Carrito();
 			usuario.setCarrito(carritoUsuarioNuevo);
-			carrito_repository.save(carritoUsuarioNuevo);
 			usuario_repository.save(usuario);
 			return "usuario_registrado";
 		}
@@ -198,24 +197,6 @@ public class SaleWebController {
 			comentario_repository.save(comentario);
 			return "comentario_guardado";
 		}
-		
-		@PostMapping("/pedido")
-		public String pedido(HttpSession sesion){
-			Usuario usuario =  usuario_repository.findByEmail((String) sesion.getAttribute("email"));
-			List<Articulo> articulosPedido = usuario.getCarrito().getArticulosCarrito();
-			Pedido pedido = new Pedido();
-			pedido.setUsuario(usuario);
-			for(Articulo articulo: articulosPedido){
-				pedido.getArticulosComprados().add(articulo);
-			}
-			pedido_repository.save(pedido);
-			long id = usuario.getCarrito().getId();
-			Carrito carrito = carrito_repository.findOne(id);
-			carrito_repository.delete(carrito);
-			usuario_repository.save(usuario);
-			return "usuario_registrado";
-		}
-		
 		//tenemos que poner un boton eliminar al lado de cada comentario
 		@GetMapping("/comentario/{id}/eliminado")
 		public String comentarioEliminar (Model model,@PathVariable long id){
