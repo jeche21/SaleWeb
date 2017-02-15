@@ -16,22 +16,4 @@
  			</form>
 		{{/noexiste}}
 	</body>
-<html>
-<head>
-	<meta charset="utf-8">
-</head>
-	<body>
-		{{#existe}}
-			<p> Se ha logueado correctamente<p>
-			<form action="/tienda" accept-charset="utf-8">
- 			<input type="submit" name="tienda" value="Ir a tienda">
- 			</form>
-		{{/existe}}
-		{{#noexiste}}
-			<p> Email o contraseña incorrectos<p>
-			<form action="/" accept-charset="utf-8">
- 			<input type="submit" name="loggin" value="Loguearse">
- 			</form>
-		{{/noexiste}}
-	</body>
 </html>
