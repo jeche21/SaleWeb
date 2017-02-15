@@ -1,5 +1,4 @@
 package es.sidelab.SaleWeb;
-
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -198,24 +197,6 @@ public class SaleWebController {
 			comentario_repository.save(comentario);
 			return "comentario_guardado";
 		}
-		
-		@PostMapping("/pedido")
-		public String pedido(HttpSession sesion){
-			Usuario usuario =  usuario_repository.findByEmail((String) sesion.getAttribute("email"));
-			List<Articulo> articulosPedido = usuario.getCarrito().getArticulosCarrito();
-			Pedido pedido = new Pedido();
-			pedido.setUsuario(usuario);
-			for(Articulo articulo: articulosPedido){
-				pedido.getArticulosComprados().add(articulo);
-			}
-			pedido_repository.save(pedido);
-			long id = usuario.getCarrito().getId();
-			Carrito carrito = carrito_repository.findOne(id);
-			carrito_repository.delete(carrito);
-			usuario_repository.save(usuario);
-			return "usuario_registrado";
-		}
-		
 		//tenemos que poner un boton eliminar al lado de cada comentario
 		@GetMapping("/comentario/{id}/eliminado")
 		public String comentarioEliminar (Model model,@PathVariable long id){
@@ -243,7 +224,7 @@ public class SaleWebController {
 		}
 		
 		@PostMapping("/pedido")
-		public String pedido(Model model, HttpSession sesion){
+		public String pedido(HttpSession sesion){
 			Usuario usuario =  usuario_repository.findByEmail((String) sesion.getAttribute("email"));
 			List<Articulo> articulosPedido = usuario.getCarrito().getArticulosCarrito();
 			Pedido pedido = new Pedido();
@@ -252,15 +233,10 @@ public class SaleWebController {
 				pedido.getArticulosComprados().add(articulo);
 			}
 			pedido_repository.save(pedido);
-			
-			Carrito carrito = usuario.getCarrito();
+			long id = usuario.getCarrito().getId();
+			Carrito carrito = carrito_repository.findOne(id);
 			carrito_repository.delete(carrito);
-			for(int i = articulosPedido.size()-1; i == -1; i--){
-				usuario.getCarrito().getArticulosCarrito().remove(i);
-				carrito = usuario.getCarrito();
-				carrito_repository.save(carrito);
-			}
-			
 			return "pedido_realizado";
 		}
 }
+
