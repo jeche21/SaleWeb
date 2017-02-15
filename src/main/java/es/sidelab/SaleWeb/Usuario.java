@@ -1,3 +1,4 @@
+
 package es.sidelab.SaleWeb;
 
 
@@ -220,4 +221,3 @@ public class Usuario {
 				+ escalera + ", piso=" + piso + ", letra=" + letra + "]";
 	}
 }
-

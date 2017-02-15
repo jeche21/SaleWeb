@@ -1,3 +1,4 @@
+
 package es.sidelab.SaleWeb;
 
 import org.springframework.data.jpa.repository.JpaRepository;
