@@ -224,9 +224,24 @@ public class SaleWebController {
 		}
 		
 		@PostMapping("/pedido")
-		public String pedido(HttpSession sesion){
+		public String pedido(Model model, HttpSession sesion){
 			Usuario usuario =  usuario_repository.findByEmail((String) sesion.getAttribute("email"));
 			List<Articulo> articulosPedido = usuario.getCarrito().getArticulosCarrito();
+			Pedido pedido = new Pedido();
+			pedido.setUsuario(usuario);
+			for(Articulo articulo: articulosPedido){
+				pedido.getArticulosComprados().add(articulo);
+			}
+			pedido_repository.save(pedido);
+			
+			Carrito carrito = usuario.getCarrito();
+			carrito_repository.delete(carrito);
+			for(int i = articulosPedido.size()-1; i == -1; i--){
+				usuario.getCarrito().getArticulosCarrito().remove(i);
+				carrito = usuario.getCarrito();
+				carrito_repository.save(carrito);
+			}
+			
 			return "pedido_realizado";
 		}
 }
