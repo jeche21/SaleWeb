@@ -1,0 +1,18 @@
+<html>
+<body>
+	<h1>Articulos en el carrito</h1>
+	{{#articulos_carrito}}
+	<a href="carrito/{{-index}}">{{nombre}} {{seccion}}</a><br>
+	{{/articulos_carrito}}
+	<br>
+	<form action="/carrito/comprar" method="post" accept-charset="utf-8">
+
+ 		<input type="submit" name="comprar" value="Comprar">
+ 	</form>
+	
+	<form action="/tienda" accept-charset="utf-8">
+ 		<input type="submit" name="atras" value="Atras">
+ 	</form>
+
+</body>
+</html>

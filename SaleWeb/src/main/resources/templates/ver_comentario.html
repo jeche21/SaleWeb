@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+	<p>Autor: {{comentario.autor.nombre}}</p>
+ 	<p>Cuerpo: {{comentario.cuerpo}}</p>
+ 	<form action="/comentario/{{id}}/eliminado">
+ 		<input type="submit" name="eliminar" value="Eliminar">
+ 	</form>
+</body>
+</html>
