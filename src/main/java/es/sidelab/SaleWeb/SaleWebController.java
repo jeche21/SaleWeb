@@ -1,10 +1,8 @@
 package es.sidelab.SaleWeb;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +16,6 @@ import es.sidelab.SaleWeb.Pedido;
 import es.sidelab.SaleWeb.PedidoRepository;
 import es.sidelab.SaleWeb.Articulo;
 import es.sidelab.SaleWeb.ArticuloRepository;
-import es.sidelab.SaleWeb.CarritoRepository;
 import es.sidelab.SaleWeb.Comentario;
 import es.sidelab.SaleWeb.ComentarioRepository;
 import es.sidelab.SaleWeb.Usuario;
@@ -37,33 +34,11 @@ public class SaleWebController {
 	private ComentarioRepository comentario_repository;
 	
 	@Autowired
-	private CarritoRepository carrito_repository;
-	
-	@Autowired
 	private UsuarioRepository usuario_repository;
 	
 	@Autowired
 	private PedidoRepository pedido_repository;
-	
-	//private Carrito carrito;
-	
-	//private List<Articulo> articulos = new ArrayList<>();
-	//private List<Articulo> articulos_carrito = new ArrayList<>();
-	//private List<Usuario> usuarios = new ArrayList<>();
-	private List<Comentario> comentarios = new ArrayList<>();
-	
-	Usuario usuarioEnPagina;
-	private Pedido pedido;
-	
-	@PostConstruct
-	public void inicio(){
-		
-		//articulo_repository.save(new Articulo("Suricato", "Animal", "Fiera mascota"));
-		//articulo_repository.save(new Articulo("Palmera", "Bollo", "Chocolate+Hojaldre"));
-		
-		//articulos_carrito.add(new Articulo("prueba", "prueba", "prueba"));
-	}
-	
+
 	@GetMapping("/")
 	public String principal (){
 		return "principal";
