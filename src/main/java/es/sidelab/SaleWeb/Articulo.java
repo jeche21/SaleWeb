@@ -30,7 +30,7 @@ public class Articulo {
 	@ManyToMany(mappedBy="articulosComprados")
 	private List<Pedido> articulosEnPedidos = new ArrayList<Pedido>();
 	
-	@ManyToMany(mappedBy="articulosCarrito")
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Carrito> articulosEnCarrito = new ArrayList<Carrito>();
 	
 	@OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL)

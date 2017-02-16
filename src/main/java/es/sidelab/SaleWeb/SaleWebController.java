@@ -104,77 +104,76 @@ public class SaleWebController {
 	}
 	
 	//*** DONE ***
-	@GetMapping("/articulo/{id}")
-	public String verArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
+		@GetMapping("/articulo/{id}")
+		public String verArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
+			
+			Articulo articulo = articulo_repository.findOne(id);
+			model.addAttribute("articulo", articulo);
+			//Articulo articulo_guardado = articulo_repository.findOne(id);
+			//model.addAttribute("articulo",articulo_guardado);
+			model.addAttribute("comentarios",comentario_repository.findByArticulo(articulo));
+			return "ver_articulo";
+		}
 		
-		Articulo articulo = articulo_repository.findOne(id);
-		model.addAttribute("articulo", articulo);
-		//Articulo articulo_guardado = articulo_repository.findOne(id);
-		//model.addAttribute("articulo",articulo_guardado);
-		model.addAttribute("comentarios",comentario_repository.findByArticulo(articulo));
-		return "ver_articulo";
-	}
-	
-	@GetMapping("/articulo/{id}/eliminar")
-	public String eliminarArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
+		@GetMapping("/articulo/{id}/eliminar")
+		public String eliminarArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
+			
+			Articulo articulo = articulo_repository.findOne(id);
+			articulo_repository.delete(articulo);
+			model.addAttribute("articulos", articulo_repository.findAll());
+			return "articulo_eliminado";
+		}
 		
-		Articulo articulo = articulo_repository.findOne(id);
-		articulo_repository.delete(articulo);
-		model.addAttribute("articulos", articulo_repository.findAll());
-		return "articulo_eliminado";
-	}
-	
-	//*** DONE ***
-	@GetMapping("/carrito")
-	public String verCarrito (Model model, HttpSession sesion){
-		Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
-		model.addAttribute("articulos_carrito",  usuario.getCarrito().getArticulosCarrito());
-		return "carrito";
-	}
-	
-	//*** DONE ***
-	@GetMapping("/carrito/{num}")
-	public String verArticuloCarrito (Model model, @PathVariable int num, HttpSession sesion){
-		Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
-		model.addAttribute("articulo_carrito", usuario.getCarrito().getArticulosCarrito().get(num-1));
+		//*** DONE ***
+		@GetMapping("/carrito")
+		public String verCarrito (Model model, HttpSession sesion){
+			Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
+			model.addAttribute("articulos_carrito",  usuario.getCarrito().getArticulosCarrito());
+			return "carrito";
+		}
 		
-		return "ver_articuloCarrito";
-	}
-	
-	
-	//*** DONE ***
-	@GetMapping("/articulo/{id}/añadido")
-	public String añadirArticulo (Model model, @PathVariable long id, HttpSession sesion /*@PathVariable int num*/){
+		//*** DONE ***
+		@GetMapping("/carrito/{num}")
+		public String verArticuloCarrito (Model model, @PathVariable int num, HttpSession sesion){
+			Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
+			model.addAttribute("articulo_carrito", usuario.getCarrito().getArticulosCarrito().get(num-1));
+			
+			return "ver_articuloCarrito";
+		}
 		
-		Articulo articulo = articulo_repository.findOne(id);
-		//articulos_carrito.add(articulo);
-		//articulos.remove(num-1);
 		
-		//Articulo articulo_guardado = articulo_repository.findOne(id);
-		Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
-		Carrito carritoUsuario = usuario.getCarrito();
-		carrito_repository.delete(carritoUsuario);
-		carritoUsuario.getArticulosCarrito().add(articulo);
-		carrito_repository.save(carritoUsuario);
+		//*** DONE ***
+		@GetMapping("/articulo/{id}/añadido")
+		public String añadirArticulo (Model model, @PathVariable long id, HttpSession sesion /*@PathVariable int num*/){
+			
+			Articulo articulo = articulo_repository.findOne(id);
+			//articulos_carrito.add(articulo);
+			//articulos.remove(num-1);
+			
+			//Articulo articulo_guardado = articulo_repository.findOne(id);
+			Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
+			Carrito carritoUsuario = usuario.getCarrito();
+			articulo.getArticulosEnCarrito().add(carritoUsuario);
+			articulo_repository.save(articulo);
+			
+			return "articulo_añadido";
+		}
 		
-		return "articulo_añadido";
-	}
-	
-	//*** DONE ***
-	
-	//No me mola nadaaaaaaaa esta maaaaaal ¿{num} y luego long id?
-	@GetMapping("/carrito/{num}/eliminado")
-	public String eliminarArticuloCarrito (Model model,/*@PathVariable long id*/ @PathVariable int num, HttpSession sesion){
+		//*** DONE ***
 		
-		//articulos_carrito.remove(num-1);
-		Usuario usuarioBuscado = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
-		Carrito usuario = usuarioBuscado.getCarrito();
-		carrito_repository.delete(usuario);
-		usuarioBuscado.getCarrito().getArticulosCarrito().remove(num-1);
-		carrito_repository.save(usuario);
-		return "articuloCarritoEliminado";
-	}
-	
+		//No me mola nadaaaaaaaa esta maaaaaal ¿{num} y luego long id?
+		@GetMapping("/carrito/{num}/eliminado")
+		public String eliminarArticuloCarrito (Model model,/*@PathVariable long id*/ @PathVariable int num, HttpSession sesion){
+			
+			//articulos_carrito.remove(num-1);
+			Usuario usuarioBuscado = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
+			Carrito usuario = usuarioBuscado.getCarrito();
+			Articulo articulo = usuario.getArticulosCarrito().get(num-1);
+			articulo.getArticulosEnCarrito().remove(usuario);
+			articulo_repository.save(articulo);
+			return "articuloCarritoEliminado";
+		}
+		
 		@PostMapping("/usuario/nuevo")
 		public String UsuarioNuevo (Model model, Usuario usuario, HttpSession sesion){
 			//Guardo el usuario creado
@@ -184,7 +183,7 @@ public class SaleWebController {
 			usuario_repository.save(usuario);
 			return "usuario_registrado";
 		}
-		
+			
 		@PostMapping("/comentario/articulo/{id}")
 		public String comentar (Model model, Comentario comentario, @PathVariable long id, HttpSession sesion){
 			//Guardo el comentario escrito creado
@@ -205,14 +204,13 @@ public class SaleWebController {
 			//model.addAttribute(comentario_repository.findAll());
 			return "comentario_eliminado";
 		}
-		
+			
 		@GetMapping("/articulo/comentario/{id}")
 		public String verComentario(Model model, @PathVariable long id){
-			
 			model.addAttribute("comentario", comentario_repository.findOne(id));
 			return "ver_comentario";
 		}
-		
+			
 		@PostMapping("/carrito/comprar")
 		public String comprarArticulos(Model model, HttpSession sesion){
 			Usuario usuario =  usuario_repository.findByEmail((String) sesion.getAttribute("email"));
@@ -221,21 +219,24 @@ public class SaleWebController {
 			model.addAttribute("articulos_carrito", carrito.getArticulosCarrito());
 			return "pedido";
 		}
-		
+			
 		@PostMapping("/pedido")
-		public String pedido(HttpSession sesion){
+		public String pedido(Model model, HttpSession sesion){
 			Usuario usuario =  usuario_repository.findByEmail((String) sesion.getAttribute("email"));
-			List<Articulo> articulosPedido = usuario.getCarrito().getArticulosCarrito();
+			List<Articulo> articulosPedido = articulo_repository.findByArticulosEnCarrito(usuario.getCarrito());
 			Pedido pedido = new Pedido();
 			pedido.setUsuario(usuario);
 			for(Articulo articulo: articulosPedido){
-				pedido.getArticulosComprados().add(articulo);
+			pedido.getArticulosComprados().add(articulo);
 			}
 			pedido_repository.save(pedido);
-			long id = usuario.getCarrito().getId();
-			Carrito carrito = carrito_repository.findOne(id);
-			carrito_repository.delete(carrito);
+				
+			Carrito carrito = usuario.getCarrito();
+			for(Articulo articulo: articulosPedido){
+				articulo.getArticulosEnCarrito().remove(carrito);
+				articulo_repository.save(articulo);
+			}
+				
 			return "pedido_realizado";
 		}
 }
-

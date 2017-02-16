@@ -24,7 +24,7 @@ public class Carrito {
 	private long id;
 		
 	//el carrito tiene varios articulos y se borran en cascada
-	@ManyToMany
+	@ManyToMany(mappedBy="articulosEnCarrito")
 	List<Articulo> articulosCarrito = new ArrayList<Articulo>();
 	
 	@OneToOne(mappedBy="carrito")
