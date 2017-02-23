@@ -14,10 +14,12 @@
 			<p><input type="password" placeholder="Contraseña" name="contraseña"/></p>
 			<p>Email</p>
 			<input type='text' placeholder="Correo electronico" name='email'/>
-		
 			<p><input type='submit' value='Registrarse'/></p>
+			<input type="hidden" name="_csrf" value="{{token}}"/>
 		</form>
-		<form action="/" method="post">
+		<form action="/">
 			<input type='submit' value='Cancelar'/>
+		</form>
+		
 	</body>
 </html>

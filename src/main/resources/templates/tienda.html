@@ -7,9 +7,11 @@
 	<a href="articulo/{{id}}">{{nombre}} {{seccion}}</a><br>
 	{{/articulos}}
 	<br>
+	{{#admin}}
 	<form action="nuevoArticulo.html" accept-charset="utf-8">
 		<input type="submit" name="nuevo" value="Nuevo Articulo">
-	</form> 
+	</form>
+	{{/admin}}
 	<form action="/carrito"  accept-charset="utf-8">
 		<input type="submit" name="carrito" value="Ver Carrito">
 	</form>

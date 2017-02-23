@@ -19,9 +19,11 @@
  	<form action="/articulo/{{id}}/añadido" accept-charset="utf-8">
  		<input type="submit" name="carrito" value="Añadir al carrito">
  	</form>
+ 	{{#admin}}
  	<form action="/articulo/{{id}}/eliminar" accept-charset="utf-8">
  		<input type="submit" name="eliminar" value="Eliminar">
  	</form>
+ 	{{/admin}}
  	<form action="/tienda" accept-charset="utf-8">
  		<input type="submit" name="volver" value="Volver a la tienda">
  	</form>

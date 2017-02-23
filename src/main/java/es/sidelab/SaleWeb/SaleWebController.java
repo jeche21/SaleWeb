@@ -1,6 +1,7 @@
 package es.sidelab.SaleWeb;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -64,8 +65,9 @@ public class SaleWebController {
 	}
 	
 	@GetMapping("/tienda")
-	public String tienda (Model model){
+	public String tienda (Model model,HttpServletRequest request){
 		model.addAttribute("articulos", articulo_repository.findAll());
+		model.addAttribute("admin",request.isUserInRole("ADMIN"));
 		return "tienda";
 	}
 	
@@ -80,13 +82,15 @@ public class SaleWebController {
 	
 	//*** DONE ***
 		@GetMapping("/articulo/{id}")
-		public String verArticulo (Model model, @PathVariable long id /*@PathVariable int num*/){
+		public String verArticulo (Model model, @PathVariable long id,HttpServletRequest request/*@PathVariable int num*/){
 			
 			Articulo articulo = articulo_repository.findOne(id);
 			model.addAttribute("articulo", articulo);
 			//Articulo articulo_guardado = articulo_repository.findOne(id);
 			//model.addAttribute("articulo",articulo_guardado);
 			model.addAttribute("comentarios",comentario_repository.findByArticulo(articulo));
+			model.addAttribute("admin",request.isUserInRole("ADMIN"));
+			
 			return "ver_articulo";
 		}
 		

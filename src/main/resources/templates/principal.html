@@ -12,6 +12,7 @@
 		<input type="password" type="text" name="contraseña" size="30" placeholder="Contraseña..."><br>
 		<br>
 		<input type="submit" name="guardar" value="Log In"> 
+		<input type="hidden" name="_csrf" value="{{token}}"/>
 	</form><br>
 	<form action="nuevoUsuario.html" accept-charset="utf-8">
 		<input type="submit" name="registrarse" value="Sign Up">
