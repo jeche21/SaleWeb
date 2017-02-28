@@ -159,6 +159,7 @@ public class SaleWebController {
 			sesion.setAttribute("email", usuario.getEmail());
 			Carrito carritoUsuarioNuevo = new Carrito();
 			usuario.setCarrito(carritoUsuarioNuevo);
+			usuario.getRol().add("ROLE_USER");
 			usuario_repository.save(usuario);
 			return "usuario_registrado";
 		}

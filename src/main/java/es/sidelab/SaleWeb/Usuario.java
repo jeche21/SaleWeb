@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,26 +58,20 @@ public class Usuario {
 	@OneToMany(mappedBy="autor")
 	private List<Comentario> comentarios = new ArrayList<Comentario>();
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> rol;
 	
 	public Usuario(){
 	}
 	
-	public Usuario(String nombre, String primerApellido, String segundoApelido, String contraseña, String email,
-			String pais, String provincia, String municipio, String calle, int numero, String portal, String escalera, int piso, String letra){
+	public Usuario(String nombre, String primerApellido, String segundoApelido, String contraseña, String email, String rol){
 		this.nombre = nombre;
 		this.primerApellido = primerApellido;
 		this.segundoApellido = segundoApelido;
 		this.contraseña = contraseña;
 		this.email = email;
-		this.pais = pais;
-		this.provincia = provincia;
-		this.municipio = municipio;
-		this.calle = calle;
-		this.numero = numero;
-		this.portal = portal;
-		this.escalera = escalera;
-		this.piso = piso;
-		this.letra = letra;
+		this.rol = new ArrayList<String>();
+		this.rol.add(rol);
 	}
 	
 	public String getNombre() {
@@ -211,6 +207,14 @@ public class Usuario {
 
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
+	}
+	
+	public List<String> getRol() {
+		return rol;
+	}
+
+	public void setRol(List<String> rol) {
+		this.rol = rol;
 	}
 
 	@Override
