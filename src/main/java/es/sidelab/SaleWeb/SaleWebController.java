@@ -219,4 +219,9 @@ public class SaleWebController {
 				
 			return "pedido_realizado";
 		}
+		
+		@PostMapping("/registrar_usuario")
+		public String registrarUsuario(Model model){
+			return "nuevoUsuario";
+		}
 }

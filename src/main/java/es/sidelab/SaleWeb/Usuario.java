@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import es.sidelab.SaleWeb.Comentario;
 import es.sidelab.SaleWeb.Carrito;
@@ -68,7 +69,7 @@ public class Usuario {
 		this.nombre = nombre;
 		this.primerApellido = primerApellido;
 		this.segundoApellido = segundoApelido;
-		this.contraseña = contraseña;
+		this.contraseña = new BCryptPasswordEncoder().encode(contraseña);
 		this.email = email;
 		this.rol = new ArrayList<String>();
 		this.rol.add(rol);
