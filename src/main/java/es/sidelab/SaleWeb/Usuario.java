@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import es.sidelab.SaleWeb.Comentario;
 import es.sidelab.SaleWeb.Carrito;
@@ -69,41 +68,12 @@ public class Usuario {
 		this.nombre = nombre;
 		this.primerApellido = primerApellido;
 		this.segundoApellido = segundoApelido;
-		this.contraseña = new BCryptPasswordEncoder().encode(contraseña);
-		this.email = email;
-		this.rol = new ArrayList<String>();
-		if(rol!=null){
-			this.rol.add(rol);
-		}
-		this.carrito = new Carrito();
-	}
-	
-	
-	
-	public Usuario(long id, String nombre, String primerApellido, String segundoApellido, String contraseña,
-			String email, String pais, String provincia, String municipio, String calle, int numero, String portal,
-			String escalera, int piso, String letra) {
-		this.id = id;
-		this.nombre = nombre;
-		this.primerApellido = primerApellido;
-		this.segundoApellido = segundoApellido;
 		this.contraseña = contraseña;
 		this.email = email;
-		this.pais = pais;
-		this.provincia = provincia;
-		this.municipio = municipio;
-		this.calle = calle;
-		this.numero = numero;
-		this.portal = portal;
-		this.escalera = escalera;
-		this.piso = piso;
-		this.letra = letra;
-		this.carrito = new Carrito();
-		List<String> rol = new ArrayList<String>();
-		rol.add("ROLE_USER");
-		this.rol = rol;
+		this.rol = new ArrayList<String>();
+		this.rol.add(rol);
 	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}
