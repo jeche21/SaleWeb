@@ -1,4 +1,5 @@
 package es.sidelab.SaleWeb;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -6,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -157,9 +159,14 @@ public class SaleWebController {
 		public String UsuarioNuevo (Model model, Usuario usuario, HttpSession sesion){
 			//Guardo el usuario creado
 			sesion.setAttribute("email", usuario.getEmail());
-			Carrito carritoUsuarioNuevo = new Carrito();
-			usuario.setCarrito(carritoUsuarioNuevo);
-			usuario.getRol().add("ROLE_USER");
+			/*List<String> rol = new ArrayList<String>();
+			rol.add("ROLE_USER");
+			usuario.setRol(rol);
+			//Puente ya que el constructor de la clase no me lo hace
+			Carrito carrito = new Carrito();
+			usuario.setCarrito(carrito);
+			String contraseña = usuario.getContraseña();
+			usuario.setContraseña(new BCryptPasswordEncoder().encode(contraseña));*/
 			usuario_repository.save(usuario);
 			return "usuario_registrado";
 		}
@@ -223,5 +230,10 @@ public class SaleWebController {
 		@PostMapping("/registrar_usuario")
 		public String registrarUsuario(Model model){
 			return "nuevoUsuario";
+		}
+		
+		@PostMapping("/nuevo_articulo")
+		public String añadirArticulo(){
+			return "nuevoArticulo";
 		}
 }

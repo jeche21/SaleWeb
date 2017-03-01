@@ -10,6 +10,7 @@
  	<form action="/comentario/articulo/{{id}}" method="post" accept-charset="utf-8">
  		<p>Comentario: <textarea name="cuerpo" placeholder="Escriba aqui su comentario..."></textarea></p>
  		<input type="submit" name="comentar" value="Comentar">
+ 		<input type="hidden" name="_csrf" value="{{token}}"/>
  	</form>
  	
 	<p>Comentarios: </p>

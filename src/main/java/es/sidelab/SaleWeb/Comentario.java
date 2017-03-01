@@ -28,7 +28,7 @@ public class Comentario {
 		//Sirve para que SpringData pueda instanciar el objeto 
 	}
 	
-	public Comentario (String cuerpo, String fecha, Usuario autor){
+	public Comentario (String cuerpo, Usuario autor){
 		this.cuerpo = cuerpo;
 		this.autor = autor;
 	}
