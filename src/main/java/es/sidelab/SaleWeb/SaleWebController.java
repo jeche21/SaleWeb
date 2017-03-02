@@ -47,9 +47,22 @@ public class SaleWebController {
 		return "principal";
 	}
 	
-	@GetMapping("/loggin")
-	public String logginUsuario(){
-		
+	@PostMapping("/loggin")
+	public String logginUsuario(Model model, @RequestParam String email, @RequestParam String contraseña, HttpSession sesion){
+		Usuario usuario = usuario_repository.findByEmailAndContraseña(email, contraseña);
+		boolean existe = false;
+		boolean noexiste = false;
+		if(usuario != null){
+			existe=true;
+			noexiste=false;
+			sesion.setAttribute("email", usuario.getEmail());
+		}
+		else{
+			existe=false;
+			noexiste=true;
+		}
+		model.addAttribute("existe", existe);
+		model.addAttribute("noexiste", noexiste);
 		return "loggin_usuario";
 	}
 	
@@ -146,14 +159,14 @@ public class SaleWebController {
 		public String UsuarioNuevo (Model model, Usuario usuario, HttpSession sesion){
 			//Guardo el usuario creado
 			sesion.setAttribute("email", usuario.getEmail());
-			List<String> rol = new ArrayList<String>();
+			/*List<String> rol = new ArrayList<String>();
 			rol.add("ROLE_USER");
 			usuario.setRol(rol);
 			//Puente ya que el constructor de la clase no me lo hace
 			Carrito carrito = new Carrito();
 			usuario.setCarrito(carrito);
 			String contraseña = usuario.getContraseña();
-			usuario.setContraseña(new BCryptPasswordEncoder().encode(contraseña));
+			usuario.setContraseña(new BCryptPasswordEncoder().encode(contraseña));*/
 			usuario_repository.save(usuario);
 			return "usuario_registrado";
 		}
