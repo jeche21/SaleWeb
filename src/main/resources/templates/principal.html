@@ -5,7 +5,7 @@
 </head>
 <body>
 	<h1>SALE WEB</h1>
-	<form action="/loggin" method="post" accept-charset="utf-8">
+	<form action="/" method="post" accept-charset="utf-8">
 	<p>Email o Username: </p>
 		<input type="text" name="email" placeholder="Usuario o Correo electronico..." size="30"><br>
 		<p>Contraseña:<p/>
@@ -14,8 +14,9 @@
 		<input type="submit" name="guardar" value="Log In"> 
 		<input type="hidden" name="_csrf" value="{{token}}"/>
 	</form><br>
-	<form action="nuevoUsuario.html" accept-charset="utf-8">
+	<form action="/registrar_usuario" method = "post" accept-charset="utf-8">
 		<input type="submit" name="registrarse" value="Sign Up">
+		<input type="hidden" name="_csrf" value="{{token}}"/>
 	</form>
 </body>
 </html>
