@@ -11,6 +11,8 @@
 		{{/articulos_carrito}}
 	<form action="/pedido" method="post" accept-charset="utf-8">
 		<input type="submit" name="comprar" value="Confirmar">
+		<input type="hidden" name="_csrf" value="{{token}}"/>
+		
 	</form>
 </body>
 </html>
