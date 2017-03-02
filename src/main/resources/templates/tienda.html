@@ -8,9 +8,8 @@
 	{{/articulos}}
 	<br>
 	{{#admin}}
-	<form action="/nuevo_articulo" method = "post" accept-charset="utf-8">
+	<form action="nuevoArticulo.html" accept-charset="utf-8">
 		<input type="submit" name="nuevo" value="Nuevo Articulo">
-		<input type="hidden" name="_csrf" value="{{token}}"/>
 	</form>
 	{{/admin}}
 	<form action="/carrito"  accept-charset="utf-8">
