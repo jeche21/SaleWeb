@@ -143,7 +143,7 @@ public class SaleWebController {
 		//*** DONE ***
 		@GetMapping("/articulo/{id}/añadido")
 		public String añadirArticulo (Model model, @PathVariable long id, HttpSession sesion /*@PathVariable int num*/){
-			
+			String resultado = "";
 			Articulo articulo = articulo_repository.findOne(id);
 			//articulos_carrito.add(articulo);
 			//articulos.remove(num-1);
@@ -152,22 +152,30 @@ public class SaleWebController {
 			Usuario usuario = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
 			Carrito carritoUsuario = usuario.getCarrito();
 			articulo.getArticulosEnCarrito().add(carritoUsuario);
-			articulo_repository.save(articulo);
-			
-			return "articulo_añadido";
+			int cantidad = articulo.getCantidad();
+			if (cantidad == 0){
+				resultado = "producto_no_disponible";
+			}else{
+				cantidad--;
+				articulo.setCantidad(cantidad);
+				articulo_repository.save(articulo);
+				resultado = "articulo_añadido";
+			}
+			return resultado;
 		}
 		
 		//*** DONE ***
-		
-		//No me mola nadaaaaaaaa esta maaaaaal ¿{num} y luego long id?
 		@GetMapping("/carrito/{num}/eliminado")
 		public String eliminarArticuloCarrito (Model model,/*@PathVariable long id*/ @PathVariable int num, HttpSession sesion){
-			
 			//articulos_carrito.remove(num-1);
 			Usuario usuarioBuscado = usuario_repository.findByEmail((String) sesion.getAttribute("email"));
 			Carrito usuario = usuarioBuscado.getCarrito();
 			Articulo articulo = usuario.getArticulosCarrito().get(num-1);
 			articulo.getArticulosEnCarrito().remove(usuario);
+			//LINEAS NUEVAS
+			int cantidad = articulo.getCantidad();
+			cantidad++;
+			articulo.setCantidad(cantidad);
 			articulo_repository.save(articulo);
 			return "articuloCarritoEliminado";
 		}
