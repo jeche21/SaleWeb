@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +43,8 @@ public class SaleWebController {
 	
 	@Autowired
 	private PedidoRepository pedido_repository;
+	
+	private HttpSession sesion;
 
 	@GetMapping("/")
 	public String principal (){
@@ -68,6 +72,10 @@ public class SaleWebController {
 	
 	@GetMapping("/tienda")
 	public String tienda (Model model,HttpServletRequest request){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		HttpSession sesion = request.getSession();
+		sesion.setAttribute("email", currentPrincipalName);
 		model.addAttribute("articulos", articulo_repository.findAll());
 		model.addAttribute("admin",request.isUserInRole("ADMIN"));
 		return "tienda";
