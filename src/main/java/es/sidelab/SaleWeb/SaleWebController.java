@@ -73,23 +73,23 @@ public class SaleWebController {
 		return "tienda";
 	}
 	
-		
-		@PostMapping("/articulo/nuevo")
-		public String nuevoArticulo(Model model, Articulo articulo) {
-		
-			Articulo articuloEncontrado = articulo_repository.findByNombre(articulo.getNombre());
-			if(articuloEncontrado!=null){
-				int cantidad = articuloEncontrado.getCantidad();
-				cantidad++;
-				articuloEncontrado.setCantidad(cantidad);
-				articulo_repository.save(articuloEncontrado);
-			}else{
-				articulo.setCantidad(1);
-				articulo_repository.save(articulo);
-			}
-			
-			return "articulo_guardado";
+	//*** DONE ***
+	@PostMapping("/articulo/nuevo")
+	public String nuevoArticulo(Model model, Articulo articulo) {
+	
+		Articulo articuloEncontrado = articulo_repository.findByNombre(articulo.getNombre());
+		if(articuloEncontrado!=null){
+			int cantidad = articuloEncontrado.getCantidad();
+			cantidad++;
+			articuloEncontrado.setCantidad(cantidad);
+			articulo_repository.save(articuloEncontrado);
+		}else{
+			articulo.setCantidad(1);
+			articulo_repository.save(articulo);
 		}
+		
+		return "articulo_guardado";
+	}
 	
 	//*** DONE ***
 		@GetMapping("/articulo/{id}")
@@ -168,14 +168,14 @@ public class SaleWebController {
 		public String UsuarioNuevo (Model model, Usuario usuario, HttpSession sesion){
 			//Guardo el usuario creado
 			sesion.setAttribute("email", usuario.getEmail());
-			/*List<String> rol = new ArrayList<String>();
+			List<String> rol = new ArrayList<String>();
 			rol.add("ROLE_USER");
 			usuario.setRol(rol);
 			//Puente ya que el constructor de la clase no me lo hace
 			Carrito carrito = new Carrito();
 			usuario.setCarrito(carrito);
 			String contraseña = usuario.getContraseña();
-			usuario.setContraseña(new BCryptPasswordEncoder().encode(contraseña));*/
+			usuario.setContraseña(new BCryptPasswordEncoder().encode(contraseña));
 			usuario_repository.save(usuario);
 			return "usuario_registrado";
 		}
