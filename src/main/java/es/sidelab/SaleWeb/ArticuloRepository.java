@@ -9,7 +9,7 @@ import es.sidelab.SaleWeb.Carrito;
 
 public interface ArticuloRepository extends JpaRepository<Articulo, Long> {
 	
-	List<Articulo> findByNombre(String nombre);
+	Articulo findByNombre(String nombre);
 	List<Articulo> findBySeccion(String seccion);
 	List<Articulo> findByArticulosEnCarrito(Carrito carrito);
 	

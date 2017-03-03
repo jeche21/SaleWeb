@@ -73,14 +73,23 @@ public class SaleWebController {
 		return "tienda";
 	}
 	
-	//*** DONE ***
-	@PostMapping("/articulo/nuevo")
-	public String nuevoArticulo(Model model, Articulo articulo) {
 		
-		//articulos.add(articulo);
-		articulo_repository.save(articulo);
-		return "articulo_guardado";
-	}
+		@PostMapping("/articulo/nuevo")
+		public String nuevoArticulo(Model model, Articulo articulo) {
+		
+			Articulo articuloEncontrado = articulo_repository.findByNombre(articulo.getNombre());
+			if(articuloEncontrado!=null){
+				int cantidad = articuloEncontrado.getCantidad();
+				cantidad++;
+				articuloEncontrado.setCantidad(cantidad);
+				articulo_repository.save(articuloEncontrado);
+			}else{
+				articulo.setCantidad(1);
+				articulo_repository.save(articulo);
+			}
+			
+			return "articulo_guardado";
+		}
 	
 	//*** DONE ***
 		@GetMapping("/articulo/{id}")

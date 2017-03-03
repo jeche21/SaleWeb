@@ -26,6 +26,7 @@ public class Articulo {
 	private String nombre;
 	private String seccion;
 	private String descripcion;
+	private int cantidad;
 	
 	@ManyToMany(mappedBy="articulosComprados")
 	private List<Pedido> articulosEnPedidos = new ArrayList<Pedido>();
@@ -40,10 +41,19 @@ public class Articulo {
 		//Sirve para que SpringData pueda instanciar el objeto 
 	}
 	
-	public Articulo (String nombre, String seccion, String descripcion){
+	public Articulo (String nombre, String seccion, String descripcion,int cantidad){
 		this.nombre = nombre;
 		this.seccion = seccion;
 		this.descripcion = descripcion;
+		this.cantidad = 0;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	public String getNombre() {
