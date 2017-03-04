@@ -220,7 +220,7 @@ public class SaleWebController {
 		public String verComentario(Model model, @PathVariable long id, HttpServletRequest request, HttpSession sesion){
 			Comentario comentario = comentario_repository.findOne(id);
 			Boolean permitoEliminar = ((request.isUserInRole("ROLE_ADMIN")) || 
-										(comentario.getAutor().getEmail() == ((String) sesion.getAttribute("email"))));
+										(comentario.getAutor().getEmail().equals((String) sesion.getAttribute("email"))));
 			model.addAttribute("botonEliminar", permitoEliminar);
 			model.addAttribute("comentario", comentario);
 			return "ver_comentario";
