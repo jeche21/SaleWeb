@@ -1,4 +1,7 @@
 <html>
+<head>
+<meta http-equiv="refresh" content="10">
+</head> 
 <body>
 	<h2>Tienda</h2>
 	<h3>Lista de Articulos<h3>
@@ -15,6 +18,10 @@
 	{{/admin}}
 	<form action="/carrito"  accept-charset="utf-8">
 		<input type="submit" name="carrito" value="Ver Carrito">
+	</form>
+	<form action="/logout" method="post">
+		<input type="submit" value="Sign Out" />
+		<input type="hidden" name="_csrf" value="{{token}}"/>
 	</form>
 </body>
 </html>

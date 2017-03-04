@@ -44,7 +44,6 @@ public class SaleWebController {
 	@Autowired
 	private PedidoRepository pedido_repository;
 	
-	private HttpSession sesion;
 
 	@GetMapping("/")
 	public String principal (){
@@ -71,10 +70,10 @@ public class SaleWebController {
 	}
 	
 	@GetMapping("/tienda")
-	public String tienda (Model model,HttpServletRequest request){
+	public String tienda (Model model,HttpServletRequest request, HttpSession sesion){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
-		HttpSession sesion = request.getSession();
+		sesion = request.getSession();
 		sesion.setAttribute("email", currentPrincipalName);
 		model.addAttribute("articulos", articulo_repository.findAll());
 		model.addAttribute("admin",request.isUserInRole("ADMIN"));
@@ -218,8 +217,12 @@ public class SaleWebController {
 		}
 			
 		@GetMapping("/articulo/comentario/{id}")
-		public String verComentario(Model model, @PathVariable long id){
-			model.addAttribute("comentario", comentario_repository.findOne(id));
+		public String verComentario(Model model, @PathVariable long id, HttpServletRequest request, HttpSession sesion){
+			Comentario comentario = comentario_repository.findOne(id);
+			Boolean permitoEliminar = ((request.isUserInRole("ROLE_ADMIN")) || 
+										(comentario.getAutor().getEmail() == ((String) sesion.getAttribute("email"))));
+			model.addAttribute("botonEliminar", permitoEliminar);
+			model.addAttribute("comentario", comentario);
 			return "ver_comentario";
 		}
 			

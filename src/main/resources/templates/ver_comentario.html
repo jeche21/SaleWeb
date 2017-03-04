@@ -6,8 +6,10 @@
 <body>
 	<p>Autor: {{comentario.autor.nombre}}</p>
  	<p>Cuerpo: {{comentario.cuerpo}}</p>
+ 	{{#botonEliminar}}
  	<form action="/comentario/{{id}}/eliminado">
  		<input type="submit" name="eliminar" value="Eliminar">
  	</form>
+ 	{{/botonEliminar}}
 </body>
 </html>
