@@ -50,22 +50,8 @@ public class SaleWebController {
 		return "principal";
 	}
 	
-	@PostMapping("/loggin")
-	public String logginUsuario(Model model, @RequestParam String email, @RequestParam String contraseña, HttpSession sesion){
-		Usuario usuario = usuario_repository.findByEmailAndContraseña(email, contraseña);
-		boolean existe = false;
-		boolean noexiste = false;
-		if(usuario != null){
-			existe=true;
-			noexiste=false;
-			sesion.setAttribute("email", usuario.getEmail());
-		}
-		else{
-			existe=false;
-			noexiste=true;
-		}
-		model.addAttribute("existe", existe);
-		model.addAttribute("noexiste", noexiste);
+	@GetMapping("/loggin")
+	public String logginUsuario(){
 		return "loggin_usuario";
 	}
 	

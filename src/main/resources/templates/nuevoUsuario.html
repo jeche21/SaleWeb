@@ -18,8 +18,9 @@
 			<p><input type='submit' value='Registrarse'/></p>
 			<input type="hidden" name="_csrf" value="{{token}}"/>
 		</form>
-		<form action="/">
+		<form action="/" method="post">
 			<input type='submit' value='Cancelar'/>
+			<input type="hidden" name="_csrf" value="{{token}}"/>
 		</form>
 	</body>
 </html>
