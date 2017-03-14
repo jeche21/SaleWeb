@@ -1,4 +1,5 @@
 package es.sidelab.SaleWeb;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -227,6 +228,8 @@ public class SaleWebController {
 			List<Articulo> articulosPedido = articulo_repository.findByArticulosEnCarrito(usuario.getCarrito());
 			Pedido pedido = new Pedido();
 			pedido.setUsuario(usuario);
+			SocketCliente socket = new SocketCliente();
+			socket.enviarEmail(usuario.getEmail());
 			for(Articulo articulo: articulosPedido){
 			pedido.getArticulosComprados().add(articulo);
 			}
