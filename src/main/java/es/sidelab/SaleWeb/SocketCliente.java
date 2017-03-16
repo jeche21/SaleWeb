@@ -19,7 +19,7 @@ public class SocketCliente {
 		try {
 		
 			Socket socket = new Socket(this.host, this.puerto);
-			PrintWriter escribirServer/*pwSocketOut*/= new PrintWriter(socket.getOutputStream(),true);
+			PrintWriter escribirServer = new PrintWriter(socket.getOutputStream(),true);
 		
 			
 			escribirServer.println(linea);

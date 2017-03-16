@@ -15,9 +15,9 @@ public class Cliente {
 		try {
 			
 			Socket socket = new Socket(host, puerto);
-			BufferedReader teclado /*brStdIn*/ = new BufferedReader(new InputStreamReader(System.in));
-			BufferedReader leerServer/*brSocketIn*/= new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintWriter escribirServer/*pwSocketOut*/= new PrintWriter(socket.getOutputStream(),true);
+			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+			BufferedReader leerServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			PrintWriter escribirServer = new PrintWriter(socket.getOutputStream(),true);
 			
 			String linea;	
 			while (!(linea = teclado.readLine()).equals("x")){
