@@ -39,6 +39,10 @@ A continuación mostramos el modelo UML, el modelo entidad/relacion, el diagrama
 
 ![](imagenes/diagrama_navegacion.png)
 
+**Diagrama de clases y templates**
+
+![](imagenes/diagramaFase3.jpg)
+
 **articulo_añadido.html**
 
 ![](imagenes/articulo_añadido.jpg)
@@ -111,21 +115,21 @@ A continuación mostramos el modelo UML, el modelo entidad/relacion, el diagrama
 	
 ![](imagenes/ver_comentario.jpg)
 
-### INSTRUCCION PARA DESPLEGAR LA APLICACION EN AZURE ###
+### INSTRUCCIONES PARA DESPLEGAR LA APLICACION EN AZURE ###
 
 1) 	Generar un certificado pem para acceder a la máquina virtual:
 
-		`openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout azureus.key -out azureus-cert.pem`
+		openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout azureus.key -out azureus-cert.pem
 		
 2) Proteger la clave privada:
 
-		`chmod 0600 azureus.key`
+		chmod 0600 azureus.key
 		
 3) Crear una maquina virtual en Azure eligiendo una imagen de Ubuntu Server 14.04 y usando el certificado creado en el paso 1.
 
 4) Acceder a la maquina virtual con un cliente ssh, usando la clave privada creada en el paso 1 y la ip publica de la maquina virtual:
 
-		`ssh /path/to/azureus.key azureuser@<ip publica>`
+		ssh /path/to/azureus.key azureuser@<ip publica>
 
 5) Una vez dentro de la maquina virtual, instalar OpenJDK 8 JRE con los siguientes comandos:
 
@@ -152,13 +156,13 @@ A continuación mostramos el modelo UML, el modelo entidad/relacion, el diagrama
 
 9) Subir el ejecutable desde nuestro equipo a la maquina virtual:
 
-		`scp -i /path/to/azureus.key aplicacion.jar azureuser@<ip publica>:/home/azureuser/`
+		scp -i /path/to/azureus.key aplicacion.jar azureuser@<ip publica>:/home/azureuser/
 
 10) Acceder a la maquina virtual como ya hemos visto en el paso 4:
 	
 11) Ejecutar la aplicacion desde la maquina virtual:
 
-		`java -jar aplicacion.jar`
+		java -jar aplicacion.jar
 		
 
 ### INTEGRANTES DEL GRUPO ###
