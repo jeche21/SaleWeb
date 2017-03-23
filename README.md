@@ -164,6 +164,9 @@ A continuación mostramos el modelo UML, el modelo entidad/relacion, el diagrama
 
 		java -jar aplicacion.jar
 		
+12) Acceder via web a la aplicación:
+
+		https://<ip publica>:<puerto publico>
 
 ### INTEGRANTES DEL GRUPO ###
 
