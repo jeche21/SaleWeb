@@ -1,4 +1,6 @@
 package es.sidelab.SaleWeb;
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -236,8 +238,17 @@ public class SaleWebController {
 		List<Articulo> articulosPedido = articulo_repository.findByArticulosEnCarrito(usuario.getCarrito());
 		Pedido pedido = new Pedido();
 		pedido.setUsuario(usuario);
-		SocketCliente socket = new SocketCliente();
-		socket.enviarEmail(usuario.getEmail());
+		try {
+			new Comunicacion().main(usuario.getEmail(), "Confirmacion Saleweb", "Gracias por comprar en Saleweb");
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//SocketCliente socket = new SocketCliente();
+		//socket.enviarEmail(usuario.getEmail());
 		
 		for(Articulo articulo: articulosPedido){
 			pedido.getArticulosComprados().add(articulo);
