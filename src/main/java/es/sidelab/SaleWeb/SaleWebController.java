@@ -237,19 +237,7 @@ public class SaleWebController {
 		Usuario usuario =  usuario_repository.findByEmail((String) sesion.getAttribute("email"));
 		List<Articulo> articulosPedido = articulo_repository.findByArticulosEnCarrito(usuario.getCarrito());
 		Pedido pedido = new Pedido();
-		pedido.setUsuario(usuario);
-		try {
-			new Comunicacion().main(usuario.getEmail(), "Confirmacion Saleweb", "Gracias por comprar en Saleweb");
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//SocketCliente socket = new SocketCliente();
-		//socket.enviarEmail(usuario.getEmail());
-		
+		pedido.setUsuario(usuario);	
 		for(Articulo articulo: articulosPedido){
 			pedido.getArticulosComprados().add(articulo);
 		}
@@ -260,6 +248,7 @@ public class SaleWebController {
 			articulo.getArticulosEnCarrito().remove(carrito);
 			articulo_repository.save(articulo);
 		}
+		new Comunicacion().enviar(usuario.getEmail(), "Confirmacion Saleweb", "Gracias por comprar en Saleweb");
 			
 		return "pedido_realizado";
 	}

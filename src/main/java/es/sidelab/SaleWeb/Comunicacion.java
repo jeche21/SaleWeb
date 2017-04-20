@@ -1,6 +1,5 @@
 package es.sidelab.SaleWeb;
 
-import es.sidelab.Rest.RespuestaEmail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -9,13 +8,14 @@ import java.io.*;
 import java.net.UnknownHostException;
 
 public class Comunicacion {
-    public  void main(String email,String subject,String body) throws UnknownHostException, IOException{
-        RestTemplate restTemplate = new RestTemplate();
-        MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-        map.add("email", email);
-        map.add("subject", subject);
-        map.add("body", body);
-        ResponseEntity<RespuestaEmail> response =  restTemplate.postForEntity("https://localhost:8080/pedido",map,RespuestaEmail.class);
-
-    }
+	private static final String URL="http://localhost:8083/pedido";
+	
+	public void enviar(String direccion, String subject, String body){
+		RestTemplate restTemplate = new RestTemplate();
+        MultiValueMap<String, String> email= new LinkedMultiValueMap<String, String>();
+        email.add("email", direccion);
+        email.add("subject", subject);
+        email.add("body", body);
+        ResponseEntity<String> response =  restTemplate.postForEntity(URL,email,String.class);
+	}
 }
