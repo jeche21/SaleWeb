@@ -63,8 +63,9 @@
 	<artifactId>spring-session</artifactId>
 </dependency>
 <dependency>
-	<groupId>com.hazelcast</groupId>
-	<artifactId>hazelcast</artifactId>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <version>3.6.5</version>
 </dependency>
   </dependencies>
 </project>

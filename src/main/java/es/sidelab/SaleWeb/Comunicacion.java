@@ -15,7 +15,7 @@ public class Comunicacion {
         map.add("email", email);
         map.add("subject", subject);
         map.add("body", body);
-        ResponseEntity<RespuestaEmail> response =  restTemplate.postForEntity("https://localhost:8080/sendEmail",map,RespuestaEmail.class);
+        ResponseEntity<RespuestaEmail> response =  restTemplate.postForEntity("https://localhost:8080/pedido",map,RespuestaEmail.class);
 
     }
 }
