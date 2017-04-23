@@ -1,7 +1,4 @@
-
 package es.sidelab.SaleWeb;
-
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +74,6 @@ public class Usuario {
 		}
 		this.carrito = new Carrito();
 	}
-	
-	
 	
 	public Usuario(long id, String nombre, String primerApellido, String segundoApellido, String contraseña,
 			String email, String pais, String provincia, String municipio, String calle, int numero, String portal,

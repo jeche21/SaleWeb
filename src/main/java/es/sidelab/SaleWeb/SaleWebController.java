@@ -1,6 +1,5 @@
 package es.sidelab.SaleWeb;
-import java.io.IOException;
-import java.net.UnknownHostException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +26,6 @@ import es.sidelab.SaleWeb.ComentarioRepository;
 import es.sidelab.SaleWeb.Usuario;
 import es.sidelab.SaleWeb.UsuarioRepository;
 import es.sidelab.SaleWeb.Carrito;
-
-
 
 @Controller
 public class SaleWebController {

@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 
 import es.sidelab.SaleWeb.Articulo;
 
-
 @Entity
 public class Pedido {
 	

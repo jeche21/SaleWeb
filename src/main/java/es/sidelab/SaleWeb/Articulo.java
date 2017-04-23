@@ -15,10 +15,9 @@ import es.sidelab.SaleWeb.Carrito;
 import es.sidelab.SaleWeb.Comentario;
 import es.sidelab.SaleWeb.Pedido;
 
-//es una entidad de la clase
 @Entity
 public class Articulo {
-	//id principal 
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -38,7 +37,7 @@ public class Articulo {
 	private List<Comentario> comentarios = new ArrayList<Comentario>();
 	
 	protected Articulo(){
-		//Sirve para que SpringData pueda instanciar el objeto 
+
 	}
 	
 	public Articulo (String nombre, String seccion, String descripcion,int cantidad){
@@ -87,11 +86,6 @@ public class Articulo {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	
-	
-	
-	
 
 	public List<Pedido> getArticulosEnPedidos() {
 		return articulosEnPedidos;
