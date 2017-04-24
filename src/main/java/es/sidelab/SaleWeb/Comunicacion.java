@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class Comunicacion {
 	
-	private static final String URL="http://localhost:8083/pedido";
+	private static final String URL="http://100.114.226.45:8083/pedido";
 	
 	public void enviar(String direccion, String subject, String body){
 		RestTemplate restTemplate = new RestTemplate();
