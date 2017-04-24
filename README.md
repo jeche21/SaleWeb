@@ -1,6 +1,8 @@
 # SaleWeb
 Página de gestión de ventas online.
 
+[![VIDEO EXPLICATIVO](imagenes/portada.jpg)](https://www.youtube.com/watch?v=cCNjPGWA7jc&t=4s)
+
 ### DESCRIPCIÓN ###
 
 La página web implementa un servicio de venta on-line y tiene la funcionalidad de proporcionar a los usuarios una navegación por los artículos de la página, permitir seleccionar los que quieren comprar, acumulandolos en un carrito de compra y posteriormente confirmar el pedido, eliminando esos artículos del stock de la tienda. Para todo ello sera necesario tener una cuenta con los datos de cada cliente. Hemos dividido la pagina en dos partes:
@@ -19,11 +21,16 @@ La página web implementa un servicio de venta on-line y tiene la funcionalidad 
 
 ### SERVICIO INTERNO ###
 
-Nuestra aplicación web usa un servicio interno que lleva a cabo la confirmación de la compra de un usuario mediante el envio de un correo electrónico.
-La dirección del destinatario donde se manda el e-mail de confirmación sera la que se especifica el usuario que realiza la compra en su registro.
-A su vez, en el correo electronico se especificará la dirección de correo electrónico de la tienda on-line (salewebdad@gmail.com).
+Nuestra aplicación web usa un servicio interno que lleva a cabo la confirmación de la compra de un usuario mediante el envio de un correo electrónico. La dirección del destinatario donde se manda el e-mail de confirmación sera la que se especifica el usuario que realiza la compra en su registro. A su vez, en el correo electronico se especificará la dirección de correo electrónico de la tienda on-line (salewebdad@gmail.com). El servicio interno esta ompuesto de tres clases:
 
-### MODELO UML, MODELO ENTIDAD/RELACION (E/R), DIAGRAMA DE NAVEGACION Y DESCRIPCION DE VISTAS ###
+- **ApiRestController.java**: clase controller, encargada de atender las peticiones de la aplicacion web.
+
+- **Email.java**: clase donde se define el objeto email para su uso en el controlador.
+
+- **RestApplication.java**: clase principal que ejecuta la aplicacion.
+
+
+### MODELO UML, MODELO ENTIDAD/RELACION (E/R), DIAGRAMA DE NAVEGACION, DIAGRAMA DE CLASES Y TEMPLATES, DIAGRAMA DE LA INFRAESTRUCTURA DE AZURE Y DESCRIPCION DE VISTAS ###
 
 A continuación mostramos el modelo UML, el modelo entidad/relacion, el diagrama de navegación de la aplicación y cada una de las vistas con su correspondiente descripción:
 
@@ -41,7 +48,11 @@ A continuación mostramos el modelo UML, el modelo entidad/relacion, el diagrama
 
 **Diagrama de clases y templates**
 
-![](imagenes/diagramaFase3.jpg)
+![](imagenes/diagramaFase4.jpg)
+
+**Diagrama de la infraestructura de Azure**
+
+![](imagenes/diagramaAzure.jpg)
 
 **articulo_añadido.html**
 
@@ -129,7 +140,7 @@ A continuación mostramos el modelo UML, el modelo entidad/relacion, el diagrama
 
 4) Acceder a la maquina virtual con un cliente ssh, usando la clave privada creada en el paso 1 y la ip publica de la maquina virtual:
 
-		ssh /path/to/azureus.key azureuser@<ip publica>
+		ssh -i /path/to/azureus.key azureuser@<ip publica>
 
 5) Una vez dentro de la maquina virtual, instalar OpenJDK 8 JRE con los siguientes comandos:
 
